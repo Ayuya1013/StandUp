@@ -1,0 +1,2443 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/lect02-slide.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2025年度 プログラミング技法 (第02回)</title>
+<meta name="author" content="Yoshinari Nomura">
+<meta name="generator" content="Org Mode">
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+<link rel="stylesheet" type="text/css" href="./2025年度 プログラミング技法 (第02回)_files/text.css">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/index.html"> UP </a>
+ |
+ <a accesskey="H" href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/index.html"> HOME </a>
+</div><div id="content" class="content">
+<header>
+<h1 class="title">2025年度 プログラミング技法 (第02回)</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/lect02-slide.html#%E7%AC%AC02%E5%9B%9E%20%282025-04-15%29%20%E9%96%A2%E6%95%B0%E5%90%8D%E3%82%84%E5%A4%89%E6%95%B0%E5%90%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%96%B9">1. 第02回 (2025-04-15) 関数名や変数名の付け方</a>
+<ul>
+<li><a href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/lect02-slide.html#%E5%89%8D%E5%9B%9E%E3%81%AE%E8%AC%9B%E7%BE%A9%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E8%B3%AA%E5%95%8F%E3%81%A8%E6%84%9F%E6%83%B3">1.1. 前回の講義に関する質問と感想</a></li>
+<li><a href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/lect02-slide.html#%E5%90%8D%E5%89%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%96%B9%E3%81%AE%E8%A7%A3%E8%AA%AC%20--%20%E6%BC%94%E7%BF%92%E5%95%8F%E9%A1%8C%283%29%E3%82%92%E4%BE%8B%E3%81%AB">1.2. 名前の付け方の解説 – 演習問題(3)を例に</a></li>
+<li><a href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/lect02-slide.html#%E3%80%8C%E5%90%8D%E5%89%8D%E3%80%8D%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%B3%A8%E6%84%8F">1.3. 「名前」に関する注意</a></li>
+<li><a href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/lect02-slide.html#%E5%90%8D%E5%89%8D%E4%BB%98%E3%81%91%E3%81%AE%E7%BF%92%E6%85%A3">1.4. 名前付けの習慣</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+<div id="outline-container-%E7%AC%AC02%E5%9B%9E%20%282025-04-15%29%20%E9%96%A2%E6%95%B0%E5%90%8D%E3%82%84%E5%A4%89%E6%95%B0%E5%90%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%96%B9" class="outline-2">
+<h2 id="%E7%AC%AC02%E5%9B%9E%20%282025-04-15%29%20%E9%96%A2%E6%95%B0%E5%90%8D%E3%82%84%E5%A4%89%E6%95%B0%E5%90%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%96%B9"><span class="section-number-2">1.</span> 第02回 (2025-04-15) 関数名や変数名の付け方</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-%E5%89%8D%E5%9B%9E%E3%81%AE%E8%AC%9B%E7%BE%A9%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E8%B3%AA%E5%95%8F%E3%81%A8%E6%84%9F%E6%83%B3" class="outline-3">
+<h3 id="%E5%89%8D%E5%9B%9E%E3%81%AE%E8%AC%9B%E7%BE%A9%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E8%B3%AA%E5%95%8F%E3%81%A8%E6%84%9F%E6%83%B3"><span class="section-number-3">1.1.</span> 前回の講義に関する質問と感想</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-%E8%AC%9B%E7%BE%A9%E8%B3%87%E6%96%99%E9%96%A2%E9%80%A3" class="outline-4">
+<h4 id="%E8%AC%9B%E7%BE%A9%E8%B3%87%E6%96%99%E9%96%A2%E9%80%A3">講義資料関連</h4>
+<div class="outline-text-4" id="text-%E8%AC%9B%E7%BE%A9%E8%B3%87%E6%96%99%E9%96%A2%E9%80%A3">
+<ol class="org-ol">
+<li>プログラミング作法の参考書を購入しましたが，授業のペースに合わせて進めればよいか．
+それともどんどん参考書を進めたほうが良いでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> どんどん進めてしまって下さい．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E9%9B%91%E8%AB%87" class="outline-4">
+<h4 id="%E9%9B%91%E8%AB%87">雑談</h4>
+<div class="outline-text-4" id="text-%E9%9B%91%E8%AB%87">
+<ol class="org-ol">
+<li>飲みながらコードを書くのはビックリです
+<ul class="org-ul">
+<li><b>nom:</b> もしサッカー観戦が趣味ならば，飲みながら観ることもあるでしょう．</li>
+</ul></li>
+
+<li>先生は副作用に悩まされた経験はありますか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．もちろん沢山あります．二日酔いとかね．つまり，バグの大半は副作用から生じているといえます．</li>
+</ul></li>
+
+<li>Emacs をなぜあんなにも流暢に扱うことができるのですか．
+<ul class="org-ul">
+<li><b>nom:</b> もう何十年も使っていますからね．この講義資料も Emacs で書かれていますよ．</li>
+</ul></li>
+
+<li>乃村先生は，Unity や UnrealEngine, C# (C++) を用いたゲームプログラミングについて，どうお考えですか．
+自分は大学内にこういうのをもっと学べる講義や機会があってもいいと思います．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> もちろん，大いに勉強すればいいと思います．いずれ研究室に入ったり就職したりすれば，
+これまで触ったことのない言語やフレームワークに自然と触れることになるでしょう．その中に Unity も含まれるかもしれません．
+しかし，私の見たところ，みんな自学する準備はできていて，"Getting started" や "Tutorial" を一通りやるとかなり使えるようになります．
+</p>
+
+<p>
+大学では，時代が変わっても <b>自分で新しい技術を学ぶための方法とそのための基礎</b> を学ぶことが優先されていて，
+これ以上は， <b>授業のコマ数を増やして教えるべきことなのか</b> の判断が問われます．
+</p>
+
+<p>
+tutoial 以上の話になってくるとドメイン依存が強いものになってきます．
+つまり，Unity というよりも Unity で何を作るかに依存してくるので，そのための知識は，
+スケジューリングやガベージコレクションの影響など，大学で学ぶ事が理解の理解の助けになります．
+</p>
+
+<p>
+乃村研究室では，ゲームやスマホアプリなど，具体的な題材を使った勉強会を行うことがよくあります．
+そうした中で起こる問題は，あるクロージャ (関数) がいつ評価されるかについての理解が問われるような普遍的な問題だったりします．
+</p>
+
+<p>
+ちなみに「実践的な」テーマを題材とした「実践プログラミング」という講義も 2学期にあります．
+その中では Unity を使ってゲームを作る班もあります．教員はアドバイスする程度ですが，
+皆さんすばらしい作品を作っていますよ．
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A8%E8%88%AC" class="outline-4">
+<h4 id="%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A8%E8%88%AC">プログラミング全般</h4>
+<div class="outline-text-4" id="text-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E5%85%A8%E8%88%AC">
+<ol class="org-ol">
+<li>可読性と効率性では，どちらに力を入れたらいいですか．言語やプログラムの内容で変わりますか．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> もちろんまずは，可読性です．両立できることが多いと思いますが．
+ドナルド・クヌース先生の「早すぎる最適化は諸悪の根源」という言葉があります．
+</p>
+
+<p>
+実際のところ，プログラムの効率を左右する「ホットスポット」と呼ばれる部分は，プログラム全体のごく僅かです．
+</p></li>
+</ul></li>
+
+<li>どういう分野のプログラムを作成する際に評価順序を意識することが多いですか．
+<ul class="org-ul">
+<li><b>nom:</b> やはり並列処理や並行処理のプログラムを書く場合でしょうね．
+シビアなのは，ゲームとか．async await のような仕組を理解できないといけません．</li>
+</ul></li>
+
+<li>よいプログラムを作るための習慣で他人のコードから学ぶという話がありましたが，良いコードを見抜き方はありますか．
+<ul class="org-ul">
+<li><b>nom:</b> やはり，「誰が書いたか」でしょうね．GitHub というサイトがありますが，そこにソースコードがそれこそ無限にあります．☆が沢山付いているコードは，大抵良いコードです．</li>
+</ul></li>
+
+<li>今の勉強法が教科書のプログラムを参考にして自作プログラムを作成するという形ですが，あまり自分の力になっていない気がします．どういう点を意識しながら学習すれば，自分の力にすることができるでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> 教科書のプログラムを参考にして自作プログラムを作成するというのは，よい勉強法だと思いますよ．
+何かゼロから自分の作りたいものを作ってみる．
+世の中には似たようなプログラムを書いている人がいて，
+ソースコードも公開されていることが多いです．そういうコードを探してそれを真似しながら何人ものコードを部分的につぎはぎしてプログラムを作ることも勉強になります．</li>
+</ul></li>
+
+<li>他人のコードからプログラミングを学ぶ際のコードの選び方やおすすめのコードはありますか?
+<ul class="org-ul">
+<li><b>nom:</b> 普段自分が使っているちょっとしたツールなどがあれば，それが理想ですね．改造してみることでよい勉強になります．
+逆にコードは，小説のようなものとは違うのでただ目的なく読むのは，苦痛かもしれません．</li>
+</ul></li>
+
+<li>gcc を普段使用していますが，先生は，どのコンパイラを使用していますか．また，コンパイラのメリットデメリットはありますか．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> 私も gcc をよく使います．gcc が独自に拡張した機能がないとコンパイルできないコードもよくあります．
+</p>
+
+<p>
+clang は，後発なのでエラーメッセージが親切だったりしました．
+しましたが，gcc も最近有力なライバルの出現によって，
+同等になってきたと思います．
+</p>
+
+<p>
+clang は LLVM というコンパイラを作る基盤ソフトウェアがあって，
+その基盤の上で実装された C言語のコンパイラです．LLVM は，よく知りませんが，コンパイラの途中の AST などをいじる機能があるので，
+LSP (Language Server Protocol) のサーバの対応に有利なのでしょう．私もコード書くときの LSP サーバ (興味があれば調べてみてください) は
+clangd を使っています．
+</p>
+
+<p>
+ちなみに clang (LLVM) は，Rust など他の言語のコンパイラの基盤にもなっています．
+</p></li>
+</ul></li>
+
+<li>ポインタを何度復習しても実体のプログラムを作る時や読む時に分からなくなってしまうのですが，どのような方法で定着させるのが良いでしょうか．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> C言語でプログラムを作る場合，ポインタは避けて通れませんが，実際には他の言語でもポインタが裏に潜んでいます．
+ポインタの先にあるメモリの塊を「オブジェクト」としてとらえると，少し違って見えてくるようになるので，
+たとえば，他の言語 (オブジェクトという言葉をよく目にすると思います) を学んで C言語に戻るのも手です．
+そうすると，「オブジェクトって単なるポインタなんだ」というのが分かるようになると思います．
+</p>
+
+<p>
+その視点を得ると，ポインタ(の先) をオブジェクトだと捉えてやや抽象化した見方ができるようになります．そのほうが処理の本質を捉えやすい場合もあると思います．
+もちろん，ポインタの意味について一度詳細に触れる必要がありますが，それしか知らないとあまりに詳細が見えるので，かえって混乱するということもあります．
+</p></li>
+</ul></li>
+
+<li>プログラミングでの代入と数学の世界の代入は，意味が少し異なるのでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．数学の世界の代入というのは，プログラミングの世界では，「束縛」と呼ばれることが多いです．
+プログラミングの世界の「代入」には，「初期化」と「再代入」という区別があって，一度初期化したら値を変えない場合は，
+数学の「代入」に近いイメージで，すなわち「束縛」といいます．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E6%BC%94%E7%BF%92%281%29%20retval" class="outline-4">
+<h4 id="%E6%BC%94%E7%BF%92%281%29%20retval">演習(1) retval</h4>
+<div class="outline-text-4" id="text-%E6%BC%94%E7%BF%92%281%29%20retval">
+<p>
+<b>ごめんなさい．そういえば，演習1の回答をしていませんでしたね．</b>
+</p>
+
+<ul class="org-ul">
+<li>問1に，retval や SUCCESS の定義や使用方法が書かれていなかったため，変数の名前を変えたかったのですが，
+変えにくかったです．実際の場面でこのような変数の実体が分からない，けれども名前を変えたいと感じた場合，
+どのように名前を変えれば良いですか?
+<ul class="org-ul">
+<li><b>nom:</b> 何だか分からないものの名前を変え
+変えようがありませんね．そういう観点では，この問題は巧妙に変数の名前が選ばれていて，
+そこを問うているのではないことに気付かせるヒントにすらなっている良問だと思います．</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-%E6%BC%94%E7%BF%92%282%29%20%3Dprintf%28%22%25d%20%25d%5Cn%22%2C%20n%2B%2B%2C%20n%2B%2B%29%3B%3D%20%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6" class="outline-4">
+<h4 id="%E6%BC%94%E7%BF%92%282%29%20%3Dprintf%28%22%25d%20%25d%5Cn%22%2C%20n%2B%2B%2C%20n%2B%2B%29%3B%3D%20%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">演習(2) <code>printf("%d %d\n", n++, n++);</code> について</h4>
+<div class="outline-text-4" id="text-%E6%BC%94%E7%BF%92%282%29%20%3Dprintf%28%22%25d%20%25d%5Cn%22%2C%20n%2B%2B%2C%20n%2B%2B%29%3B%3D%20%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">
+<p>
+以下のような主旨の質問がいくつかありました．
+</p>
+<ol class="org-ol">
+<li>コンパイラによって出力結果が違う (不定な動作) にメリットや意義はあるのか．</li>
+<li>なぜ gcc は "2 1" になるのか．</li>
+</ol>
+
+<p>
+以下，それぞれに回答します．
+</p>
+</div>
+<div id="outline-container-%E3%81%AA%E3%81%9C%20%222%201%22%20%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B" class="outline-5">
+<h5 id="%E3%81%AA%E3%81%9C%20%222%201%22%20%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B">なぜ "2 1" になるのか</h5>
+<div class="outline-text-5" id="text-%E3%81%AA%E3%81%9C%20%222%201%22%20%E3%81%AB%E3%81%AA%E3%82%8B%E3%81%AE%E3%81%8B">
+<ul class="org-ul">
+<li>この話は，もともと <b>未定義</b> なので，何が起こっても不思議ではないのですが，問題のレベルを少し変えて， <b>実装上はどうなっているのか</b> という話題について話をしてみます．
+皆さんがこれまで習ったように，多くのコンパイラ実装では，引数はスタックに詰まれて関数に渡されるというのがヒントです．</li>
+
+<li>1つ気をつけて欲しいのは， gcc のみを使っていれば今回の問題を避けられるという訳ではないです．
+同じバイナリであっても， <b>実行の度</b> に f(x) と g(x) のどちらが先に実行されるかが変化してもよいことを意味します．</li>
+
+<li><p>
+<code>n++</code> がどのタイミングで行われるか分からないというのは，
+</p>
+<ul class="org-ul">
+<li><b>どの順番で行ってもよい</b> というだけで，</li>
+<li>実際には，コンパイラの実装に依存して， <b>特定の順番で副作用が起こる</b> ことが多いです．</li>
+</ul>
+<p>
+clang で試したら，「1 2」 になりましたが，これも毎回 「1 2」 です．
+</p></li>
+
+<li>では， <b>なぜ gcc は，「2 1」 の結果</b> になるのでしょうか．実は，clang より，こちらのほうがかつては自然な実装でした．
+システムプログラミングを履修した人は分かりますが，引数は， <b>スタック</b> に積まれます．スタックは，アドレスが減る方向に延びていきますね．
+なので，引数を後ろからスタックに積んでいくと，アドレスが増える方向に引数が並ぶようになっています．このため，gcc は，引数を右から評価するのです．</li>
+
+<li>では，なぜ clang は，楽な方法をとらなかったのでしょうか．ここからは，私の想像ですが，
+<ul class="org-ul">
+<li><p>
+gcc はかなり歴史のあるコンパイラです．対して clang は比較的新しいコンパイラです．したがって，
+</p>
+<ul class="org-ul">
+<li>昔の CPU は，レジスタが少なかったので，関数の引数を渡すときには，常にスタックを使う</li>
+<li>MIPS 以降の CPU は，レジスタが多いので，レジスタで渡そうとする (システムプログラミングで習いましたね)</li>
+<li>レジスタ渡しが主流なら，引数を右から評価する理由がない</li>
+<li>レジスタ渡しを主に考えるか，スタック渡しを主に考えるかで，実装が異なっているのではないか．</li>
+</ul>
+<p>
+これは，評価順序を不定にしておくことで，新しいCPUが出てきたときに，その性能 (レジスタマシンなのかスタックマシンなのか) を活かす実装を許せる
+C言語の仕様が <b>光っている</b> 例だと思います．
+</p></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%81%A7%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E9%A0%86%E5%BA%8F%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8B%E4%B8%8D%E5%AE%9A%E3%81%AA%E5%8B%95%E4%BD%9C%E3%81%AB%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%81%8C%E3%81%82%E3%82%8B%E3%81%AE%E3%81%8B" class="outline-5">
+<h5 id="%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%81%A7%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E9%A0%86%E5%BA%8F%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8B%E4%B8%8D%E5%AE%9A%E3%81%AA%E5%8B%95%E4%BD%9C%E3%81%AB%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%81%8C%E3%81%82%E3%82%8B%E3%81%AE%E3%81%8B">コンパイラで計算する順序が異なる不定な動作にメリットがあるのか</h5>
+<div class="outline-text-5" id="text-%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%A9%E3%81%A7%E8%A8%88%E7%AE%97%E3%81%99%E3%82%8B%E9%A0%86%E5%BA%8F%E3%81%8C%E7%95%B0%E3%81%AA%E3%82%8B%E4%B8%8D%E5%AE%9A%E3%81%AA%E5%8B%95%E4%BD%9C%E3%81%AB%E3%83%A1%E3%83%AA%E3%83%83%E3%83%88%E3%81%8C%E3%81%82%E3%82%8B%E3%81%AE%E3%81%8B">
+<p>
+今回のように同じPCで動く2種類のコンパイラを使うことは，あまりないかもしれませんが，
+世界中には <b>様々な種類のCPU</b> があり， <b>それ毎にコンパイラが作られて</b> います．
+</p>
+
+<p>
+コンパイラはCPUのアーキテクチャと密接に関わっているので，右から計算するコードのほうがコード生成しやすいCPUもあれば，
+その逆もあるのです．そのように， <b>あまりに規約を細かく決め過ぎると，コンパイラの実装が複雑かつ面倒</b> になります．
+それを避けるために，あえてどちらでもいいという規約になっているのが C言語です．
+なぜなら， <b>Cコンパイラは，ある CPUにおいて，ほぼ最初に実装されるコンパイラ</b> だからです．
+その他の多くの言語は，できあがった <b>Cコンパイラを使ってC言語で実装される</b> のです．
+</p>
+
+<p>
+一方で，実は，言語として評価順番まで決めているものもあります．例えば Java では <code>f(x) + g(x)</code> の評価では， <code>f(x)</code> が常に先と決められています．
+ただ，Java を書く場合であっても同じく「そう決まっている」と意識する事は確かですね．
+つまり，いずれにしても参照等価に書いておかないと，同じ問題は起こっているわけです．
+</p>
+
+<p>
+不定とすることで，コンパイラ作成者が (CPUの特性に応じた) より効率の良い方法を選択できるようになるという
+メリットを捨ててしまっているという発想もあります．
+</p>
+
+<p>
+例えば，
+</p>
+<ul class="org-ul">
+<li>コンパイラが <code>n++</code> のような式レベルの粒度で並列化できるとすると，実行毎に結果が変わるほうが妥当である</li>
+<li>しかし，そのような Cコンパイラは，巷にはない．</li>
+<li>将来，そのような細粒度並列化コンパイラが開発されて，毎回どちらが先に計算されるかの保証がなくても，
+C言語の仕様的には問題ない．つまり，これも  <b>コンパイラによって出力結果が違うメリットや意義はあるのか</b> への部分的な回答です．</li>
+</ul>
+
+<p>
+関連する質問です
+</p>
+<ol class="org-ol">
+<li>実際の評価順序は，同じ試行なら毎回同じなのか．
+<ul class="org-ul">
+<li><b>nom:</b> 多くの場合そうなることが多いですが，並列化が絡んだりすると，そうともいいきれません．</li>
+</ul></li>
+<li>問題(2) で，n++ の評価順は，コンピュータのハードウェアに起因しており，
+コンパイルするたびに代わるとかいうのではなく，コンパイラ毎に決まっているのですか．
+<ul class="org-ul">
+<li><b>nom:</b> 実際のところはどうですが，CPUが違えば事情が違う可能性もあります．
+C言語の規格では違っていいということですから，実行毎に違う出力が出ても問題はないということになります．</li>
+</ul></li>
+<li>コンパイラによって計算の順序が異なるということは，もし自分がコンパイラを作成するとき，その順番を決められるということですか?
+<ul class="org-ul">
+<li><b>nom:</b> はい．コンパイラが作りやすいです．</li>
+</ul></li>
+
+<li>講義では，gcc と clang の 2つのコンパイラにおける評価順序の違いで出力が異なっていましたが，
+この2つのコンパイラと異なる評価順序を持つものはどのようなものがありますか．
+<ul class="org-ul">
+<li><b>nom:</b> すみません．これ以外のバリエーションは知りません．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E6%BC%94%E7%BF%92%282%29%20%E3%81%AE%E6%94%B9%E5%96%84" class="outline-4">
+<h4 id="%E6%BC%94%E7%BF%92%282%29%20%E3%81%AE%E6%94%B9%E5%96%84">演習(2) の改善</h4>
+<div class="outline-text-4" id="text-%E6%BC%94%E7%BF%92%282%29%20%E3%81%AE%E6%94%B9%E5%96%84">
+<ol class="org-ol">
+<li><p>
+プログラムは，基本的に上から下へ動作すると思いますが，以下のように書いた場合，副作用は起こらなくなりますか?
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.&gt;</span>
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>() {
+  <span class="org-type">int</span> <span class="org-variable-name">n</span> = 1;
+  <span class="org-type">int</span> <span class="org-variable-name">a</span> = n++;
+  <span class="org-type">int</span> <span class="org-variable-name">b</span> = n++;
+  printf(<span class="org-string">"%d\n"</span>, a);
+  printf(<span class="org-string">"%d\n"</span>, b);
+  <span class="org-keyword">return</span> 0;
+}
+</pre>
+</div>
+<ul class="org-ul">
+<li><b>nom:</b> いいえ．「副作用」という言葉を誤解していると思います． <code>n++</code> がある時点で，そこは副作用です．
+問題は，副作用がその実行に影響するかどうかというのが問われる問題です．
+そういう意味であれば，上記は，実行順序に不定な部分がないので，予測可能なコードです．</li>
+</ul></li>
+
+<li>例にあげられていた <code>printf("%d %d\n", n++, n++)</code> を かならず 1,2 の順で表示したい場合は，
+<code>printf("%d", n++); printf("%d\n", n++);</code> のように書けばいいですか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．その通りです．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E5%A4%89%E6%95%B0%E3%81%AF%E6%A5%B5%E5%8A%9B%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%3F%20%E5%90%8D%E7%B0%BF%E7%AE%A1%E7%90%86%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%92%E4%BE%8B%E3%81%AB" class="outline-4">
+<h4 id="%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E5%A4%89%E6%95%B0%E3%81%AF%E6%A5%B5%E5%8A%9B%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%3F%20%E5%90%8D%E7%B0%BF%E7%AE%A1%E7%90%86%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%92%E4%BE%8B%E3%81%AB">グローバル変数は極力使わない? 名簿管理プログラミングを例に</h4>
+<div class="outline-text-4" id="text-%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E5%A4%89%E6%95%B0%E3%81%AF%E6%A5%B5%E5%8A%9B%E4%BD%BF%E3%82%8F%E3%81%AA%E3%81%84%3F%20%E5%90%8D%E7%B0%BF%E7%AE%A1%E7%90%86%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%92%E4%BE%8B%E3%81%AB">
+<p>
+たとえば，「 <a href="https://www.swlab.cs.okayama-u.ac.jp/~nom/lect/pp/dat/examples/db-sample.c">名簿管理プログラム</a> 」は，以下の2つのグローバル変数を持っています．
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span class="org-keyword">struct</span> <span class="org-type">profile</span> <span class="org-variable-name">profile_data_store</span>[MAX_PROFILES];
+<span class="org-type">int</span> <span class="org-variable-name">profile_data_nitems</span> = 0;  <span class="org-comment-delimiter">/* </span><span class="org-comment">number of elements in profile_data_store</span><span class="org-comment-delimiter"> */</span>
+</pre>
+</div>
+
+<p>
+これによって引き起こされるバグの例を考えましょう．
+<code>profile_data_nitems</code> とデータを格納している <code>profile profile_data_store[]</code> の更新には一貫性が必要です．
+つまり，両者は一つのかたまりとして扱われるべきで，名簿データを追加や削除した場合に，両方を同期して更新しなければなりません．
+名簿データの追加は，プログラム中で唯一ある <code>new_profile</code> の行によってのみ引き起こされるようになっていますが，
+その際に， <code>profile_data_nitems</code> も同時に更新することでうまく動作しています．
+つまり，こうです:
+</p>
+<div class="org-src-container">
+<pre class="src src-C">new_profile(&amp;profile_data_store[profile_data_nitems++], line);
+</pre>
+</div>
+<p>
+これは，注意を要する仕事です．
+ここ以外の場所で名簿データを追加や削除したくなった場合，(例えば，削除(D) コマンドを追加した場合)
+<code>profile_data_nitems</code> を更新するのを忘れるとバグになります．つまり <b>2つの依存する副作用を矛盾なく，順序よく起こすようにしないと問題</b> が発生します．
+</p>
+
+<p>
+これを解決するために，例えば，
+</p>
+<ol class="org-ol">
+<li><code>profile profile_data_store[]</code> と <code>profile_data_nitems</code> をメンバとして持つ <code>struct profile_db</code> という型を定義する</li>
+<li><code>profile_data_store</code> の代わりに <code>profile_data_db</code> を使う</li>
+<li><p>
+profile_db 型のオブジェクトを操作するための一連の関数を定義する．つまり
+</p>
+<pre class="example">add_profile_data(struct profile_db db, profile)
+del_profile_data(struct profile_db db, nth)
+</pre>
+
+<p>
+のような関数を作って， <b>これらの一連の関数でしか profile_db 型のデータを操作しない</b> ようにする．
+</p></li>
+</ol>
+
+<p>
+依然として <code>profile_data_db</code> はグローバル変数ですが，こうすることによって，struct profile_db 型の変数を <b>常に引数として与えるようになる</b> ので，
+これをグローバルではなく malloc 等で取得したメモリで充てることもできます．つまりデータベースをいくつも持つことが可能です．
+また，グローバル変数のままでも，それを操作しているという状況を把握しやすくなりますし， <b>struct profile_db 型の引数を取る関数のみが副作用を引き起こす</b> ことが分かりやすいので，
+一貫性を保ちやすい構造になります．
+</p>
+
+<p>
+つまり，副作用の所在を1個所にまとめ，操作 (関数の引数など) から副作用の有無がはっきり分かるようにします．
+オブジェクト指向は，オブジェクトによって副作用を狭い個所に閉じ込めると説明しましたが，考え方は，今回の例と同じです．
+</p>
+
+<p>
+以下，関連する質問です．
+</p>
+<ol class="org-ol">
+<li>グローバル変数を使わなければいけない場面とは，具体的にどんな場面ですか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．使わなくてもプログラムは書けます．書くと楽になるケースはあるので，安易に使ってしまうのがよくないということですね
+たとえば， <b>名簿管理プログラム</b> では，名簿データを保存する配列はグローバル変数でしたね．あれは，本当はよくないけど，演習のために分かりやすさを優先してあのようになっています．</li>
+</ul></li>
+
+<li>「グローバル変数を使うとき分離した計算部分の関数にグローバル変数を引数として与えて計算させる」ということがよく分からなかったので，例を見たいです．</li>
+
+<li><code>f(a) + g(b) * h(c)</code> などの事例で， <code>f(a)</code> と <code>g(b)</code> のように複数にまたがって関係する関数などを
+持たない事も参照透過性を上げるプログラムになると思うのですが，グローバル変数として多用する方が好ましいですか．
+<ul class="org-ul">
+<li><b>nom:</b> 質問の意図がよく分かりませんが，グローバル変数は，
+状態を共有してしまって，一見関係のない (ある副作用が他に関係するとは思えない) のに，実際には
+グローバル変数を通じて副作用の影響が出てしまうことが問題です．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E5%89%AF%E4%BD%9C%E7%94%A8%E3%82%92%E7%B5%8C%E9%A8%93%E3%81%97%E3%81%9F%E3%81%93%E3%81%A8%E3%81%8C%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A0%E3%81%8C%EF%BC%8E%E3%81%A9%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E5%A0%B4%E9%9D%A2%E3%81%A7%E8%B5%B7%E3%81%93%E3%82%8B%E3%81%AE%E3%81%8B" class="outline-4">
+<h4 id="%E5%89%AF%E4%BD%9C%E7%94%A8%E3%82%92%E7%B5%8C%E9%A8%93%E3%81%97%E3%81%9F%E3%81%93%E3%81%A8%E3%81%8C%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A0%E3%81%8C%EF%BC%8E%E3%81%A9%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E5%A0%B4%E9%9D%A2%E3%81%A7%E8%B5%B7%E3%81%93%E3%82%8B%E3%81%AE%E3%81%8B">副作用を経験したことがないのだが．どのような場面で起こるのか</h4>
+<div class="outline-text-4" id="text-%E5%89%AF%E4%BD%9C%E7%94%A8%E3%82%92%E7%B5%8C%E9%A8%93%E3%81%97%E3%81%9F%E3%81%93%E3%81%A8%E3%81%8C%E3%81%AA%E3%81%84%E3%81%AE%E3%81%A0%E3%81%8C%EF%BC%8E%E3%81%A9%E3%81%AE%E3%82%88%E3%81%86%E3%81%AA%E5%A0%B4%E9%9D%A2%E3%81%A7%E8%B5%B7%E3%81%93%E3%82%8B%E3%81%AE%E3%81%8B">
+<ol class="org-ol">
+<li>副作用を上手に利用して同じようなプログラムの処理速度を早めることはできますか?
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> いい質問ですね．何故副作用があるのかというと，問題を起こす副作用とは，
+一度変数に束縛したメモリの中身を再代入することで書換える行為ですから，
+メモリの効率がよくて (別の所にコピーして元の領域に副作用を与えないようにするのに比べて)，
+速度の点で有利だからです．たとえば，講義資料に出ている
+「値(オブジェクト)を直接書換えるのではなくコピーして隔離する」という手法は，副作用を軽減しますが，遅いです．
+</p>
+
+<p>
+C言語では，副作用の有無のどちらを採用するかは，プログラマの選択ですが，
+皆さんが普通に C言語で書くと副作用バリバリだけどすごく速いというコードなのです．
+</p>
+
+<p>
+多くの言語は副作用を見えにくくするためにコピーして隔離する方法を取るため，遅いという事情があります．
+</p></li>
+</ul></li>
+
+<li>副作用によって実際にどのような不具合が起こる可能性があるのでしょうか．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> これは沢山あるのですが，実は，C言語では「副作用を起こしている」というのが
+コード中でほぼ見えるので， <b>意識してることを意識していない</b> ことがあります．
+代入も単純ですし，ポインタが直接意識されるので，
+どの部分のメモリが書き変わっている (つまり副作用が起こっている) かがはっきり分かっています．
+</p>
+
+<p>
+むしろ副作用で失敗するのは，Python のようないわゆる <b>便利な言語</b> です．
+以下のそれぞれの print で何が表示されると思いますか．
+</p>
+
+<p>
+副作用アリバージョン:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-variable-name">a</span> = [1,2,3]
+<span class="org-variable-name">b</span> = a
+a.append(4)
+
+<span class="org-keyword">print</span>(a)
+<span class="org-keyword">print</span>(b)
+</pre>
+</div>
+
+<p>
+副作用なしバージョン:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-variable-name">a</span> = [1,2,3]
+<span class="org-variable-name">b</span> = a
+<span class="org-variable-name">a</span> = a + [4]
+
+<span class="org-keyword">print</span>(a)
+<span class="org-keyword">print</span>(b)
+</pre>
+</div></li>
+</ul></li>
+
+<li>コンパイラによって評価順序が違うのをはじめて知りました．10年ほどCプログラミングをしていますが，
+評価順の問題に一度もぶつからなかったのは，暗黙的にこの問題を踏まえて書かれているのでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> ぶつかっていたが気付いていないこともあるかもしれませんが，
+C言語は，副作用がよく見える言語なので，そういうのを回避するのが自然にできていたのかもしれません．</li>
+</ul></li>
+
+<li>副作用によって，プログラムが望んだ動きをしないという現象は，初心者でも多く発生する事象ですか?
+今まで授業を受けた中で，私達がこの問題に直面した可能性は高いですか?
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> C言語の初心者では，メモリを徹底的に意識させられるので，
+「副作用」で発生するプログラムの複雑さを自然と理解しているように思います．
+</p>
+
+<p>
+グローバル変数の予期せぬ書き換えで不具合を経験している人もいると思いますし，
+参照透過でないプログラムを書いてしまうことで理解しにくいコードで
+バグを誘発するような，副作用が遠因の問題は多いと思います．
+</p></li>
+</ul></li>
+
+<li>関数関連以外での副作用はあるのか? あるのであれば，どのようなものがあるか知りたいと思います．
+<ul class="org-ul">
+<li><b>nom:</b> プログラムは，すべて関数でできているので，関数に関連しているといえばしています．
+今回は数値を扱うプログラムについての話でしたが，文字列を扱うような関数のほうが副作用を含みやすいです．
+第二回で少し説明したいと思います．</li>
+</ul></li>
+
+<li>普段何げなく使用していた C言語に副作用が隠れていたとは．
+今後使用する際によりプログラミングが億劫になってしまうことは避けたいので深く理解したい．
+<ul class="org-ul">
+<li><b>nom:</b> はい．この概念は，言語を問わず大事になってくると思います．
+C言語は，むしろ副作用が目に見える分だけあまりあたりまえすぎて意識していないのだと思います．</li>
+</ul></li>
+
+<li>副作用は，今日の授業を受けてみた感じ，主にグローバル変数など，数値の計算により起こるのか文字列でも起こり得るのか．
+<ul class="org-ul">
+<li><b>nom:</b> 副作用というのは，要はメモリ中の値を他に影響のある形で書換えるという意味ですから，
+むしろ数値では起こり辛いです．なぜなら数値は，単一の値として容易にコピーできるので，書換えたくなければ，新たな変数を作ってそこにコピーすればいいわけです．
+<ul class="org-ul">
+<li>文字列をはじめとした配列 (画像のデータも要は配列ですね) のような大きなデータは，その一部を書換えつつ処理をするので，副作用が起こりやすいです．</li>
+<li>たとえば，前回の講義時間中には説明できませんでしたが，講義資料「副作用とうまく付き合うには」のコードは文字列の一部を書換えることによる副作用が問題となっている例です．</li>
+</ul></li>
+</ul></li>
+
+<li>いつでも同じ結果 (先生の例では 3) が返ってくる関数からといって，
+<code>printf("x")</code> を <code>printf("3")</code> とするとエラーが出るとの話がありましたが，
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> いいえ誤解があります．
+例えば， <code>f(1)</code> が，いつも同じ結果 3 を返すなら，
+<code>print(f(1))</code> を <code>printf(3)</code> と書いてもいい筈であるという意味です．
+つまり <code>f(x)</code> に副作用がないなら，その関数が返す値で置き換えても問題ない．
+</p>
+
+<p>
+実際，賢いコンパイラは， <code>factorial(5)</code> みたいなコードを単に
+120 に置き換えてコンパイルします． <code>factorial</code> は，コードを読むと副作用がないですから．
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E8%A9%95%E4%BE%A1%E9%A0%86%E5%BA%8F" class="outline-4">
+<h4 id="%E8%A9%95%E4%BE%A1%E9%A0%86%E5%BA%8F">評価順序</h4>
+<div class="outline-text-4" id="text-%E8%A9%95%E4%BE%A1%E9%A0%86%E5%BA%8F">
+<ol class="org-ol">
+<li>評価が行われるのは，コンパイル時と実行時のどちらですか?
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> 面白い質問です．プログラム中の全ての部分が参照透過なら，プログラムは実行するという概念がなくなります．なぜなら値がコンパイル時点で決まっているからです．
+しかし実際には，「ユーザの入力のような」外部から与えられる副作用によってプログラムは値を決定しますから，動作させてみないといけません．つまり実行時に評価が発生する訳です．
+</p>
+
+<p>
+しかし本当にコンパイル時に値が決まってしまうようなコードもあります．
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span class="org-type">int</span> <span class="org-variable-name">x</span> = 0;
+<span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt;= 10; i++) {
+  x += i;
+}
+<span class="org-keyword">return</span> x;
+</pre>
+</div>
+<p>
+上記のコードはコンパイラによっては，最適化され，ただ <code>return 55;</code> に置き換わります．
+</p></li>
+</ul></li>
+
+<li>処理に時間がかかるというメリットがあるのは承知の上で，評価順序に一定の規則があるコンパイラや言語はありますか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．Java はその例です．どちらかというと，評価順序を規定している言語のほうが多いかもしれませんね．
+Rust も速度を重視する言語ですが，C言語のように明確には決まっていなかったのですが，議論の末，2021年に LTR (Left to Right) に定めたようです．
+こういった感じで評価順はプログラマの関心事の1つになっているのが分かると思います．
+<ul class="org-ul">
+<li><a href="https://github.com/rust-lang/reference/pull/888/commits/ff28b3544849950921fadc998ecbbde4cab697c0#diff-36dc19bf9cecd8c66cba888f16302e2607af8cbf438be8f13a48af6b56562d97R88">Document execution order by Havvy · Pull Request #888 · rust-lang/reference</a></li>
+</ul></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E5%89%AF%E4%BD%9C%E7%94%A8%E3%82%92%E6%84%8F%E8%AD%98%E3%81%97%E3%81%9F%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%AB%E3%81%AF" class="outline-4">
+<h4 id="%E5%89%AF%E4%BD%9C%E7%94%A8%E3%82%92%E6%84%8F%E8%AD%98%E3%81%97%E3%81%9F%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%AB%E3%81%AF">副作用を意識したコードを書くには</h4>
+<div class="outline-text-4" id="text-%E5%89%AF%E4%BD%9C%E7%94%A8%E3%82%92%E6%84%8F%E8%AD%98%E3%81%97%E3%81%9F%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%AB%E3%81%AF">
+<p>
+以下の質問は講義の前回の時間が足りなくて触れられなかった講義資料に説明があります．
+合わせて参照してください．
+</p>
+
+<ol class="org-ol">
+<li>副作用のある部分を分離して閉じ込めるということは，プログラムコード中のその部分を全て関数にしなければならないということですか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．皆さんのプログラムは，関数をほとんど書かない傾向にありますが，
+現実のプログラムは，非常に沢山の関数を書きます．</li>
+</ul></li>
+
+<li>副作用のあるないについて学び，ここ2年間でそんなことを気にしてプログラムを書いたことがなく，
+いつも普通にコンパイルしてしまっていたりします．
+今後は，どの関数が参照透過でとかを必ず考えなければいけないでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> 皆さんは，実は，知らず知らずのうちに意識しています．Cではあたりまえのことが，概念化されていて，それを意識することで，
+他の言語を勉強するときに役立つことになるでしょう．</li>
+</ul></li>
+
+<li>副作用のないプログラムを書くために意識したほうがいいことはありますか．
+<ul class="org-ul">
+<li><b>nom:</b> 前回の講義で説明した通り，副作用のないプログラムは書けないので，
+副作用のある部分とそうでない部分を意識して分離することが大事だと思います．
+前回の講義で話ができなかった後半部分で触れます．</li>
+</ul></li>
+
+<li>プログラムを作成する中で考えうる副作用を考慮しながら書くコツなどはあるのでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> 実は，皆さんは副作用を考えながらコードを書いています．
+裏でこの関数がこんなことをしているかもしれないなという想像ができるようになっていると思います．
+たとえば，sort という関数は，副作用があると思いますか?
+副作用のない sort と副作用のある sort は，どう違うと思いますか?</li>
+</ul></li>
+
+<li>参照透過なコードを書くためにプログラム時に意識すべき事は何ですか．
+<ul class="org-ul">
+<li><b>nom:</b> すみません．講義資料の後半に書いてあるのですが，
+前回そこまでたどりつけませんでしたね．本日補足します．</li>
+</ul></li>
+
+<li>説明を聞いただけでは，どのような副作用があるか把握し上手く回避するには，とても難しそうに感じたのですが，
+これは，意識すれば自然と身に付くものなのでしょうか?
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> はい．というか，皆さんは，実は既に身に付いています．それを「副作用」という概念として言語化しているだけなのです，あらためて考えてみるとあたりまえだと思えませんか?
+C言語は，よくも悪くも，動作の仕組みが透けて見える言語なので 「ここに副作用がある!」 というようなことは，意識しないでもあたりまえのこととして皆さんは捉えていると思います．
+</p>
+
+<p>
+しかし，それを言語化して，分離したりすることを意識することで，よりよりプログラムが書けまよということを理解できると思います．
+</p></li>
+</ul></li>
+
+<li>関数を書くことは，処理を分割することであると思います．今回であれば，分割の方法としてカプセル化を教わりました．他に何かありますか?
+<ul class="org-ul">
+<li><b>nom:</b> 関数には名前が付きますから，その名前をもって処理の意図を明確にするというはたらきがあります．従ってたった1行であっても関数にすることがあります．
+この話は，後の講義で説明したいと思います．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-printf%20%E3%81%AE%E5%89%AF%E4%BD%9C%E7%94%A8" class="outline-4">
+<h4 id="printf%20%E3%81%AE%E5%89%AF%E4%BD%9C%E7%94%A8">printf の副作用</h4>
+<div class="outline-text-4" id="text-printf%20%E3%81%AE%E5%89%AF%E4%BD%9C%E7%94%A8">
+<ol class="org-ol">
+<li><code>++A</code> は， <code>A</code> の値を1つ増やすための処理と思っていた．
+printf も同じように文字の出力を目的とした関数であると思っていたので，
+副作用と処理の目的の違いが今一分からなかった．
+<ul class="org-ul">
+<li><b>nom:</b> 少し誤解していると思います．上記2つは， <b>副作用自体を処理の目的</b> としているのです．
+「 <b>目的</b> に合わない動作が副作用」だという定義ではありません．
+本来の式の値や関数の値が使われることは少ない例です．</li>
+</ul></li>
+
+<li>入力する変数が複数存在する関数が大半を占めているのではないかと考えているが，
+毎回副作用に気をつけなければならないのか．また関数の中身によっては，乞うりょ する必要がないものもあるのか．
+<ul class="org-ul">
+<li><b>nom:</b> 実際のプログラムで入出力を担う部分は，ごく僅かですし，重要な部分ではありません．
+どちらかというとアルゴリズム (ビジネスロジック) を実現したり，
+ゲームでいうとキャラクタを描画する部分よりもその座標を計算する部分のほうが重要なことが多いと思います．</li>
+</ul></li>
+
+<li>並列で処理をするには，どう記述すればいいですか．勝手に判断される?
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> 例えば C言語だと <a href="https://ja.wikipedia.org/wiki/OpenMP">OpenMP - Wikipedia</a> のようなフレームワーク (規格) あって，gcc も対応しています．
+以下のプログラムは，普通の 0-9 まで表示するプログラムですが，1つ違うのは， <code>#pragma omp parallel for</code> という記述です．
+これは，この for を並列化しなさいというオマジナイです．普通にコンパイルすると，いつも通りに動きますが，
+<code>gcc</code> に <code>-fopenmp</code> オプションを付けてコンパイルうると驚くかもしれません．
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>()
+{
+    <span class="org-type">int</span> <span class="org-variable-name">i</span>;
+<span class="org-preprocessor">#pragma</span> omp parallel <span class="org-keyword">for</span>
+    <span class="org-keyword">for</span> (i = 0; i &lt; 10; ++i)
+    {
+      printf(<span class="org-string">"%d\n"</span>, i);
+    }
+    <span class="org-keyword">return</span> 0;
+}
+</pre>
+</div></li>
+</ul></li>
+
+<li><p>
+printf で画面出力することのどこがいけないことなのでしょうか?
+状態を破壊している訳ではないと感じたので疑問に思いました．
+<b>破壊</b> と呼ぶかは別として変えていますね．
+</p>
+
+<p>
+世界を変えています．printf は世界を変えるので，冪等ではありません．その実行される順序に敏感です．
+OpenMP の例を見れば，printf が実行順序を意識すべき副作用であると分かると思います．
+</p></li>
+
+<li>入力による副作用の悪影響があまり想像できませんした．
+<ul class="org-ul">
+<li><b>nom:</b> scanf とからめた例を資料に乗せているので説明しますね．
+ユーザからのキーボード入力というのは，参照透過ではないですね．</li>
+</ul></li>
+
+<li>画面への出力が副作用という用語でネガティブに語られる理由がよく分かりませんでした．
+<ul class="org-ul">
+<li><b>nom:</b>  情報系の <b>副作用</b> という単語は，ネガティブな定義はありません．
+むしろ printf 自体は副作用を目的とした関数です．
+しかし，副作用を意識しないと失敗することがあるということです．</li>
+</ul></li>
+
+<li>printf が起こす副作用は，プログラムに悪影響を及ぼすことはありますか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．副作用は，その順序が重要なので，
+2つの関数 f, g の中でそれぞれ printf をする部分があって，それぞれが意図した順序で表示されて欲しいのですが，
+意図しない順番で printf されるといった問題によくでくわします．</li>
+</ul></li>
+<li>今回，副作用と参照透過性ということが分かりましたが，これ次の関数もこれらに違反していますか．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> 書いてくれたコードに「違反」ということは，ありません．副作用があるかないかです．
+コードは引用しませんが，printf を使っているので副作用があります．この関数を
+文字列を printf するのではなく，文字列そのものを return するような関数にすると参照透過になります．
+</p>
+
+<p>
+printf するのは呼び出した側で行います．
+</p></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E5%BE%8C%E3%81%AE%E8%AC%9B%E7%BE%A9%E3%81%A7%E8%A7%A6%E3%82%8C%E3%81%BE%E3%81%99" class="outline-4">
+<h4 id="%E5%BE%8C%E3%81%AE%E8%AC%9B%E7%BE%A9%E3%81%A7%E8%A7%A6%E3%82%8C%E3%81%BE%E3%81%99">後の講義で触れます</h4>
+<div class="outline-text-4" id="text-%E5%BE%8C%E3%81%AE%E8%AC%9B%E7%BE%A9%E3%81%A7%E8%A7%A6%E3%82%8C%E3%81%BE%E3%81%99">
+<ol class="org-ol">
+<li>プロの方々に問3のような質問をした場合，全員が同じ関数名を付けるのでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> 後の講義で詳しく説明しますが，そんなことはありません．
+しかし「この関数名はダメだよね」という関数名はあって，
+それはプロなら，同じ方向性を持って皆同意するということです．
+したがって，「これはダメでしょう」という関数名がなぜダメなのかを学ぶといいです．</li>
+</ul></li>
+
+<li>変数名においてローマ字でつけることについてどう思いますか．
+<ul class="org-ul">
+<li><b>nom:</b> やめたほうがいいですね．かえって分かり辛いですし，コードを読む人が日本人とは限りません．</li>
+</ul></li>
+
+<li>プログラミングにおいて，関数名を付ける以外の英語の重要性は何なのでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> 関数名や変数名を英語で付けることは重要なので，それだけでも意味があります．
+更には，ドキュメントを書く，コメントを書く，
+共同開発者やコントリビュータとコミュニケーションするという部分で重要だと思います．</li>
+</ul></li>
+
+<li>関数で厳密な規定がない場合，エラーとかで -1 とかを返すべきかどうか．
+<ul class="org-ul">
+<li><b>nom:</b> 関数によりますが，エラー時に何を返すかは，コメントや関数のリファレンスで明示すべきです．</li>
+</ul></li>
+
+<li>2つの配列があるとして， <code>a[n++] = b[n++];</code> のような操作をしたら何が起こるのか．
+<ul class="org-ul">
+<li><b>nom:</b> いい質問ですね．これは，sequence point の話で触れますが，
+何が起こるか「未定義」で，予測不可能な状態です．実行してみることはできると思いますが．</li>
+</ul></li>
+
+<li>書法の話．書法1が嫌いなのですが，どちらが好ましいですか．
+<ul class="org-ul">
+<li><p>
+<b>nom:</b> これは，一貫性があれば，どちらでもいいと思います．通常は，チームでの決め事の問題なので，チームで話し合って (ケンカ) して最初に決めておくべきです．
+最近のプログラミング言語では，標準のフォーマッタがあって，それによって規定されている場合も多いので，そうしたケンカが起きにくくなっています．
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span class="org-comment-delimiter">// </span><span class="org-comment">書法1</span>
+<span class="org-keyword">if</span> () {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+} <span class="org-keyword">else</span> {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">書法2</span>
+<span class="org-keyword">if</span> () {
+  <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+}
+<span class="org-keyword">else</span>
+{
+  <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+}
+</pre>
+</div></li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E3%81%9D%E3%81%AE%E4%BB%96" class="outline-4">
+<h4 id="%E3%81%9D%E3%81%AE%E4%BB%96">その他</h4>
+<div class="outline-text-4" id="text-%E3%81%9D%E3%81%AE%E4%BB%96">
+<ol class="org-ol">
+<li>先生が思う一番「美しい」プログラムとは何ですか．
+<ul class="org-ul">
+<li><b>nom:</b> やはり，第三者が見て分かりやすく，かつ効率がよいプログラムでしょうね．</li>
+</ul></li>
+
+<li>副作用が起きるのは C言語だけでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> 世の中の全てのプログラミング言語は，副作用があります．そうでないと画面に print できませんね．</li>
+</ul></li>
+
+<li>I18N で動作できるようにとは，どのようなことですか?
+<ul class="org-ul">
+<li><b>nom:</b> I18N というのは，Internationalization の略
+(I と N の間に 18 文字ある) で，つまり国際化という意味です．
+どこの国 (言語) でも動くようなプログラムという意味です．</li>
+</ul></li>
+
+<li>条件演算子は使用すべきかどうか．
+<ul class="org-ul">
+<li><b>nom:</b> 三項演算子のことでしょうか? 使って見やすくなれば，使ったほうがいいですね．</li>
+</ul></li>
+
+<li><code>++</code> や <code>--</code> によってインクリメント (デクリメント) できないプログラミング言語はありますか?
+<ul class="org-ul">
+<li><b>nom:</b> 大半そうではないですか? 少なくとも eLisp とか Rust, Python, Ruby にはありませんね．</li>
+</ul></li>
+
+<li>タイムスライス機能付きのCPUは，並行処理を行えるため，並行処理を行いながら参照透明なコードを書くことができるという認識で合っていますか．
+タイムスライス機能のないCPUを用いた場合，副作用と並行処理を天秤にかける必要があるということでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> まず，タイムスライスという機能や概念は，CPU にあるわけではありません．OS がそれを実現しているかどうかですね．
+タイムスライス (というかプリエンプション) がない OS かどうかは，副作用の話とは，あまり関係ありません．
+並行処理プログラムは，(実行順序が自明ではないことが多いので) より副作用に気をつける必要があるという意味です．</li>
+</ul></li>
+
+<li>作成したプログラムに参照透過性がるかどうかを効率的に確かめるには，どのようなデバッグをすればいいですか．
+<ul class="org-ul">
+<li><b>nom:</b> デバッグではなくてテストですね．1つは，参照透過な関数は，引数が同じ場合は常に同じ値を返すという性質があるので，その性質の有無をテストでチェックすることができます．
+しかし，大抵の場合，関数の用途を知れば，それが副作用を持つかどうかは皆さんであればすぐ分かると思います．例えば，qsort は参照透過でしょうか? いいえ．そうではないですね．</li>
+</ul></li>
+
+<li>スライドで出てきた A++ や printf 以外に副作用のあるものってありますか?
+<ul class="org-ul">
+<li><b>nom:</b> はい．考えられる便利な処理は，ほぼ副作用です．講義資料に習うなら，
+「ある式がその式本来の値を返すのとは別に，変数の値を変えたり，入出力をしたりすること」ですから，
+ネットワークやデータベースの値を読みに行く関数やメモリの値を書換える処理はいずれも副作用です．</li>
+</ul></li>
+
+<li>評価順序とは，変数に値を入れる順番や関数の計算をする順番という解釈でいいですか．
+<ul class="org-ul">
+<li><b>nom:</b> 「評価」とは，ある式の値を確定することをいいます． <code>a</code> という式があった場合，実際には <code>a</code> に相当するメモリから値を取り出してレジスタにロードしているわけですが，
+それを評価といいます．関数だと，関数のコードを実行して最後の return 値を決定する行為です．
+プログラム中にこれらの式があった場合，どの部分式から計算するかというのが評価順です．</li>
+</ul></li>
+
+<li>printf などの出力は仕方がないとしても，インクリメント，デクリメントは副作用がまぎらわしいので，使わないほうがいいですか?
+<ul class="org-ul">
+<li><b>nom:</b> いいえ．変数に 1を足さないほうがいいかといえば，そんなことはないので，使えばいいと思います．式の中 (あるいは関数呼出しの引数の中) で使うとまぎらわしい場合もあるので，
+自身がなければ止めておいたほうがいいかもしれません．</li>
+</ul></li>
+
+<li><code>f(x) + g(x)</code> について質問です． <code>global_var = 0</code> は，グローバル変数として宣言されているので，
+<code>f(x)</code> が先に評価されて， <code>global_var</code> が 1 になっても，
+<code>g(x)</code> を評価する時は， <code>global_var = 0</code> が再び評価されて 0 になるのでは?
+<ul class="org-ul">
+<li><b>nom:</b> いいえ．グローバル変数への関数外での代入や関数内での static 変数の初期化は，
+初期値を決めるだけであって，それが毎回事項されるわけではありません．</li>
+</ul></li>
+
+<li>コンパイラによってだけでなくCPUによって実行順序が変化するのでしょうか．
+<ul class="org-ul">
+<li><b>nom:</b> はい．</li>
+</ul></li>
+
+<li><code>n++</code> のようなどちらも同じ処理なのに後のほうから評価されることがあるというのが不思議に思えた．
+<ul class="org-ul">
+<li><b>nom:</b> ちょっと質問の意図が分かりません． <code>printf()</code> が呼出されるときにどちらの引数から計算するかの問題であって，
+引数がどういう式なのかは関係ありません．</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E6%84%9F%E6%83%B3%E3%81%AA%E3%81%A9" class="outline-4">
+<h4 id="%E6%84%9F%E6%83%B3%E3%81%AA%E3%81%A9">感想など</h4>
+<div class="outline-text-4" id="text-%E6%84%9F%E6%83%B3%E3%81%AA%E3%81%A9">
+<ol class="org-ol">
+<li>これまでに作成したプログラムで副作用によっておかしな結果が出ることがなかったが，関数の計算などで起こる可能性があると知った．</li>
+
+<li>グローバル変数の副作用を知ることができてよかった．</li>
+
+<li>副作用を考慮してプログラミングすることの必要性を学べた</li>
+
+<li>明解にコードを書き直すとき，何を意識すべきかどこに違和感をもって目を付けるべきかを知りたい．</li>
+
+<li>副作用が何となく良くないもの程度に思っていたが，今回の講義で整理ができた．</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E5%90%8D%E5%89%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%96%B9%E3%81%AE%E8%A7%A3%E8%AA%AC%20--%20%E6%BC%94%E7%BF%92%E5%95%8F%E9%A1%8C%283%29%E3%82%92%E4%BE%8B%E3%81%AB" class="outline-3">
+<h3 id="%E5%90%8D%E5%89%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%96%B9%E3%81%AE%E8%A7%A3%E8%AA%AC%20--%20%E6%BC%94%E7%BF%92%E5%95%8F%E9%A1%8C%283%29%E3%82%92%E4%BE%8B%E3%81%AB"><span class="section-number-3">1.2.</span> 名前の付け方の解説 – 演習問題(3)を例に</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>問題:</b> 1桁の10進の値を文字に変換して返却する関数を C言語で記述し，
+プログラミング技法の観点から配慮した点を箇条書きで説明せよ．
+</p>
+</div>
+<div id="outline-container-%E9%96%A2%E6%95%B0%E3%81%AE%E5%90%8D%E5%89%8D%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E3%81%AE%E5%90%8D%E5%89%8D%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0">関数の名前ランキング</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E3%81%AE%E5%90%8D%E5%89%8D%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0">
+<p>
+まず，受講生が付けてくれた関数名を見てみましょう．
+単体で見てもこれが何をするか分かるのが望ましいですよね．
+それぞれ関数名から何をする関数か想像できますか．
+</p>
+<table>
+
+
+<colgroup>
+<col class="org-right">
+
+<col class="org-right">
+
+<col class="org-left">
+
+<col class="org-left">
+
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">No.</th>
+<th scope="col" class="org-right">回答数</th>
+<th scope="col" class="org-left">関数名</th>
+<th scope="col" class="org-left">分類</th>
+<th scope="col" class="org-left">備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">9</td>
+<td class="org-left">change</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">4</td>
+<td class="org-left">int_to_char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">3</td>
+<td class="org-left">convert</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">2</td>
+<td class="org-left">num_to_char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">2</td>
+<td class="org-left">int2char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-right">2</td>
+<td class="org-left">digit_to_char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">7</td>
+<td class="org-right">1</td>
+<td class="org-left">altchar</td>
+<td class="org-left">change</td>
+<td class="org-left">逆の意味</td>
+</tr>
+
+<tr>
+<td class="org-right">8</td>
+<td class="org-right">1</td>
+<td class="org-left">ChangeInt</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">9</td>
+<td class="org-right">1</td>
+<td class="org-left">changeint</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">10</td>
+<td class="org-right">1</td>
+<td class="org-left">changeintotochar</td>
+<td class="org-left">itoc,過剰</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">11</td>
+<td class="org-right">1</td>
+<td class="org-left">change_char</td>
+<td class="org-left">change</td>
+<td class="org-left">逆の意味</td>
+</tr>
+
+<tr>
+<td class="org-right">12</td>
+<td class="org-right">1</td>
+<td class="org-left">change_int_to_char</td>
+<td class="org-left">itoc,過剰</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">13</td>
+<td class="org-right">1</td>
+<td class="org-left">change_kazu</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">14</td>
+<td class="org-right">1</td>
+<td class="org-left">change_num</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">15</td>
+<td class="org-right">1</td>
+<td class="org-left">change_style</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">16</td>
+<td class="org-right">1</td>
+<td class="org-left">conv</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-right">1</td>
+<td class="org-left">conversion</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">18</td>
+<td class="org-right">1</td>
+<td class="org-left">convertchar</td>
+<td class="org-left">change</td>
+<td class="org-left">逆の意味</td>
+</tr>
+
+<tr>
+<td class="org-right">19</td>
+<td class="org-right">1</td>
+<td class="org-left">convertDC</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">20</td>
+<td class="org-right">1</td>
+<td class="org-left">convert_num</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">21</td>
+<td class="org-right">1</td>
+<td class="org-left">c_convert</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">22</td>
+<td class="org-right">1</td>
+<td class="org-left">dec_print</td>
+<td class="org-left">&nbsp;</td>
+<td class="org-left">print してはいけない</td>
+</tr>
+
+<tr>
+<td class="org-right">23</td>
+<td class="org-right">1</td>
+<td class="org-left">dtoc</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">24</td>
+<td class="org-right">1</td>
+<td class="org-left">exchange</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">25</td>
+<td class="org-right">1</td>
+<td class="org-left">henkan</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">26</td>
+<td class="org-right">1</td>
+<td class="org-left">henkan_c</td>
+<td class="org-left">change</td>
+<td class="org-left">逆の意味</td>
+</tr>
+
+<tr>
+<td class="org-right">27</td>
+<td class="org-right">1</td>
+<td class="org-left">i to a</td>
+<td class="org-left">itoa</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">28</td>
+<td class="org-right">1</td>
+<td class="org-left">i to c</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">29</td>
+<td class="org-right">1</td>
+<td class="org-left">int to char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">30</td>
+<td class="org-right">1</td>
+<td class="org-left">intconvert</td>
+<td class="org-left">change</td>
+<td class="org-left">語順の問題</td>
+</tr>
+
+<tr>
+<td class="org-right">31</td>
+<td class="org-right">1</td>
+<td class="org-left">Integer_to_Character</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">32</td>
+<td class="org-right">1</td>
+<td class="org-left">inttochar</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">33</td>
+<td class="org-right">1</td>
+<td class="org-left">int_char</td>
+<td class="org-left">&nbsp;</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">34</td>
+<td class="org-right">1</td>
+<td class="org-left">int_char_change</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">35</td>
+<td class="org-right">1</td>
+<td class="org-left">i_to_c</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">36</td>
+<td class="org-right">1</td>
+<td class="org-left">mysprintf</td>
+<td class="org-left">&nbsp;</td>
+<td class="org-left">print してはいけない</td>
+</tr>
+
+<tr>
+<td class="org-right">37</td>
+<td class="org-right">1</td>
+<td class="org-left">num to char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">38</td>
+<td class="org-right">1</td>
+<td class="org-left">num2chr</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">39</td>
+<td class="org-right">1</td>
+<td class="org-left">number_change</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">40</td>
+<td class="org-right">1</td>
+<td class="org-left">number_into_char</td>
+<td class="org-left">itoc,過剰</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">41</td>
+<td class="org-right">1</td>
+<td class="org-left">number_to_char</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">42</td>
+<td class="org-right">1</td>
+<td class="org-left">NumToChar</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">43</td>
+<td class="org-right">1</td>
+<td class="org-left">numtochar</td>
+<td class="org-left">itoc</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">44</td>
+<td class="org-right">1</td>
+<td class="org-left">numword</td>
+<td class="org-left">&nbsp;</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">45</td>
+<td class="org-right">1</td>
+<td class="org-left">num_change</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">46</td>
+<td class="org-right">1</td>
+<td class="org-left">num_to_word</td>
+<td class="org-left">itoa</td>
+<td class="org-left">word とは?</td>
+</tr>
+
+<tr>
+<td class="org-right">47</td>
+<td class="org-right">1</td>
+<td class="org-left">str</td>
+<td class="org-left">&nbsp;</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">48</td>
+<td class="org-right">1</td>
+<td class="org-left">swap</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">49</td>
+<td class="org-right">1</td>
+<td class="org-left">tochar</td>
+<td class="org-left">ToA</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">50</td>
+<td class="org-right">1</td>
+<td class="org-left">tostring</td>
+<td class="org-left">ToA</td>
+<td class="org-left">String ではない</td>
+</tr>
+
+<tr>
+<td class="org-right">51</td>
+<td class="org-right">1</td>
+<td class="org-left">transform</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+
+<tr>
+<td class="org-right">52</td>
+<td class="org-right">1</td>
+<td class="org-left">trans_ch</td>
+<td class="org-left">change</td>
+<td class="org-left">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<ul class="org-ul">
+<li>有効回答数 52種類，68名 (73名受講)</li>
+</ul>
+
+<p>
+同じ事をする関数でも，実に様々な名前が付くものです．
+以下，これらの関数の傾向を分類してみます．
+なお，関数の名前そのものが文法的におかしい物があっても目をつぶって解説しています．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E1%3A%20change%E7%B3%BB" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E1%3A%20change%E7%B3%BB">関数名の分類1: change系</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E1%3A%20change%E7%B3%BB">
+<p>
+35件，約半数の回答がこれに該当します． <code>change</code> や <code>convert</code> は，関数名としては
+最もダメな例だと思います．これらの回答には，以下の問題があります．
+</p>
+
+<ul class="org-ul">
+<li>この関数から何を得られるか，名前からは推測しにくい</li>
+<li><code>Convert</code> や <code>change_xxx</code> のような名前にしても… 何に変換するのか不明</li>
+<li>動作の異なる幅広い関数にこれらの名前を付けることができる</li>
+</ul>
+
+<p>
+少し気を使ったつもりで，<code>Change_char</code> のように <code>change_x</code>
+と書いたりする人もいます．本人は，Change (Integer To) Char
+のつもりなのですが，char は change の目的語ですから，
+「char を変えろ」といっているように読めてしまい，
+<b>変換元と変換先が逆になってしまって，余計始末が悪いです．</b>
+同じ処理内容なのにもかかわらず，かたや change_num… かたや change_char…
+と書こうとする人がいるのは，英文法の理解の問題である場合もあります．
+</p>
+
+<p>
+そもそも， <b>change という単語を関数名中に使うこと自体，あまり意味のないこと</b> です．なぜなら，
+<b>関数というもの自体が，何らかの入力を得て，それに対応する変換(あるいは状態の変化)をするもの</b>
+だからです． <code>func</code> や <code>convert</code>, <code>exchange</code>, <code>translate</code> を付けるのも同様です．
+</p>
+
+<p>
+演習でたまにみかける <code>change</code> に似た例は，
+条件判定に <code>check</code> という関数を使うことです．
+true (真) が返ってきた場合に，どう解釈すればいいのか
+関数の名前から不明な例です．例えば，
+</p>
+
+<pre class="example">check(you)
+</pre>
+
+
+<p>
+と書いてあっても，you の何をどう check するのか，
+戻ってきた答えをどう解釈すればいいのかが一切不明です．
+それに対して，例えば，
+</p>
+
+<pre class="example">is_sleepy(you, now)
+</pre>
+
+
+<p>
+のような真偽を返す関数を is_ と表現することにしておくと，
+返却される値の意味が明確になります．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E2%3A%20ToA%E7%B3%BB" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E2%3A%20ToA%E7%B3%BB">関数名の分類2: ToA系</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E2%3A%20ToA%E7%B3%BB">
+<p>
+「To_何とか」といった，何かに変換するといった関数名を付けるともよくあります．
+</p>
+<pre class="example" id="orgf6435e8">change_to_char
+</pre>
+
+<p>
+これには，以下の問題があります．
+</p>
+
+<ul class="org-ul">
+<li>何を変換するのか不明</li>
+<li>言語によっては， <code>toChar</code> といったような記述がむしろ一般的かもしれないが，C言語ではダメ</li>
+</ul>
+
+<p>
+例えば，Java や C++ で何らかのオブジェクトをレシーバとしてメソッド(関数)を実装した場合は，
+変換対象のオブジェクトに対してメッセージを送ることで
+関数(メソッド)を起動することになるでしょう．
+つまり，こうです．
+</p>
+
+<pre class="example">n.toChar()
+</pre>
+
+
+<p>
+オブジェクトとは，本件では，変換対象の数です．
+つまり，変換対象の <code>n</code> に対して，「文字に変われ」
+というメッセージを送ることになります．
+<code>n</code> は自身が1桁の整数だということに責任を持っています(知っています)．
+なので， <code>intToChar</code> とやらなくてもいいわけです．
+</p>
+
+<p>
+一方，C言語の場合は，オブジェクトに直接メッセージを送るのではありません．
+別の「全てを司る何か」に変換を要求します．
+そのため，関数名に対象物 (オブジェクト)
+の素性を明記しなければなりません．例えばこうです．
+</p>
+
+<pre class="example">int_to_char(n)
+</pre>
+
+
+<p>
+C言語の困ったところは，対象物の型によって，
+int の部分を変えた名前が多く必要になってくるところです．
+</p>
+
+<pre class="example">int_to_char(n)
+float_to_char(f)
+double_to_char(d)
+</pre>
+
+
+<p>
+このように，名前を考える，そして覚えるのが大変です．
+Java や C++ では，いずれも <code>toChar</code> という同じ名前で
+3種類の関数を作っても構いません．
+</p>
+
+<p>
+オブジェクト指向(のオブジェクトが持つ多態性)の関数定義を真似してしまって，
+うまく表現できていない可能性があります．
+</p>
+
+<p>
+引数の型が int なので，a_to_b の a は不要なのではという反論があるかもしれません．
+たしかにそのとおりですが，引数の型だけでオブジェクト指向のクラス程
+その性質を表現しきれているか? という問題があります．
+</p>
+
+<p>
+つまり，引数の型 int が 「一桁の正数」 にそのまま対応する型ならば，あまり問題ないでしょう．
+オブジェクト指向 (多態性) では，メッセージのレシーバがその責任を負っていますが，
+今回実装した関数はそうではありません．
+</p>
+
+<p>
+つまり，オブジェクト指向でのレシーバは，既に1桁の正数であるという
+性質を持っているオブジェクト (であるべき) なので，toChar でいいわけです．
+</p>
+
+<p>
+このように，型が性質を完全に表現していない場合，注意が必要です．自衛策としては，
+</p>
+<ol class="org-ol">
+<li>しかるべき型を与える (int を生のまま使わない．クラスなどで包む)</li>
+<li>しかるべきコメントを与える (次回のトピックです)</li>
+<li>しかるべき名前を与える (関数名に動作の詳細を語らせる)</li>
+</ol>
+<p>
+ということが必要になります．つまり，今回は 3番のトピックについて言っています．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E3%3A%20AtoB%E7%B3%BB1%20%28itoa%29" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E3%3A%20AtoB%E7%B3%BB1%20%28itoa%29">関数名の分類3: AtoB系1 (itoa)</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E3%3A%20AtoB%E7%B3%BB1%20%28itoa%29">
+<p>
+変換関数が AtoB のような名前だという慣習を
+よく理解している人の回答です．
+しかし，Aが何でBが何かを
+今一正確に表現できていない例だといえます．
+たとえば以下の問題があります．
+</p>
+
+<ul class="org-ul">
+<li>a は，ASCII の連想から，文字であるといえるが，既存ライブラリ
+<code>atoi</code> (文字ではなく <b>文字列</b> から整数)の逆変換との連想を与えるため，
+Cを良く知る人がかえって誤解する可能性がある</li>
+<li><code>string, str, s</code> は，文字列と理解されるので，慣例を知る人に誤解を与える名前</li>
+</ul>
+
+<p>
+<code>str</code> や <code>string</code> を使ってしまう人は， <b>文字列と文字の違い</b> をよく理解していない可能性があります．
+これは，非常に基本的な部分での間違いなので，
+私なら，関数名を見ただけで，この関数の中身(とプログラマ)は， <b>怪しいだろうと疑ってかかります</b>．
+文字，文字列，数の区別を明確に付けられているのと同時に，
+名前にもそのことを反映させる必要があります．
+</p>
+
+<p>
+また，あるときは <code>string</code> を使い，あるときは <code>str</code> を使う
+といった，同じ物であるのに統一性のない名前付けは混乱の元です．
+</p>
+
+<p>
+一方，つい書いてしまうのは，<code>itoa</code> でしょう． <code>atoi</code> を知る多くの
+C言語習得者にとっては，この選択肢が一番妥当に思えるからです．しかし，
+先に述べた <b>a</b> に関する誤解の問題があります．
+</p>
+
+<p>
+読み手に物事を簡単に理解させるためには，
+相手の既存の知識を利用するのが一番の近道です．
+この場合は，C言語の標準ライブラリ関数 <code>atoi</code> からの
+類推を期待しているわけです．
+</p>
+
+<p>
+ただし，この手法には，危険もあります．
+似て非なる物に同じ名前を付けてしまい，
+その違いが関数の重要な要素であるとすると，
+逆に大きな誤解を与えることになるからです．
+そういう意味では，標準ライブラリの <code>atoi</code> も
+あまりいい名前とはいえないと私は，思います．
+</p>
+
+<p>
+また，プログラミングにおいては，
+一般の英単語とは違う独特の用語の使い方をするので，この点も注意が必要です．
+例えば，string は， <b>糸</b> ですが，プログラミングにおいては文字列ですし，
+word は，C言語の世界では，何ビットかの <b>整数</b> となります．
+文字は，letter ではなくて， character ですよね．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E4%3A%20AtoB%E7%B3%BB2%20%28itoc%29" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E4%3A%20AtoB%E7%B3%BB2%20%28itoc%29">関数名の分類4: AtoB系2 (itoc)</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E4%3A%20AtoB%E7%B3%BB2%20%28itoc%29">
+<p>
+このあたりからが合格ラインでしょうか．以下の点を指摘しておきましょう．
+</p>
+
+<ul class="org-ul">
+<li>c や char を使うことで，明確に文字に変換することが分かる．</li>
+<li>ただし，int, number は <b>1桁</b> という意味を持っていない．</li>
+<li>たまに decimal や dec という単語を使う人がいますが，
+<b>10進数</b> という意味に取れるので，意味がずれる．
+何進数かというのは，表示したときにはじめて問題となる，
+表現の問題であって，値の持つ意味とは関係なく，むしろ <b>1桁</b> のほうに注意を払うべきです．</li>
+</ul>
+
+<p>
+<code>int_to_char</code> とそのバリエーションが多く見られます．
+<code>itoa</code> と多少違うことをアピールしている <code>itoc</code> もいい例でしょう．
+名前を大文字で始めるか，「 <code>_</code> 」 を入れるかなどの違いは，
+流儀の違いなので，統一されていれば問題ありません．
+このほか，to のことを 2 (two) と書くのもよく見られる慣習です．
+</p>
+
+<p>
+ここでは，「1桁の整数」を何と表現するかで工夫が必要です．
+ここで，につかわしい単語があるとすれば， <b>digit</b> だと私は思います．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E5%3A%20%E3%82%84%E3%82%84%E9%81%8E%E5%89%B0%E7%B3%BB" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E5%3A%20%E3%82%84%E3%82%84%E9%81%8E%E5%89%B0%E7%B3%BB">関数名の分類5: やや過剰系</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E5%88%86%E9%A1%9E5%3A%20%E3%82%84%E3%82%84%E9%81%8E%E5%89%B0%E7%B3%BB">
+<p>
+慣習として，AtoB は，AからBへの変換なので，関数名としてはそれだけで十分です．
+Change や Convert, Exchange あるいは Translate などを頭に付けても付加的な意味を与えないので，
+ない方が明解といえます．
+</p>
+
+<p>
+これらの回答は，中級者でもたまに見かけられる傾向がある回答です．
+分かりやすい名前をつけるべしと思い，やたら長い名前を付けることがあります．
+名前は，本来は簡潔である方がよく，AtoB や A2B の慣習を知る
+人間にとっては，かえって理解の妨げになることもあります．
+</p>
+
+<p>
+関数名や変数名は，実は，長ければいいというものでもありません．
+それに，あまりに長い名前の関数は，
+その関数が1つ以上の仕事を引き受けている可能性があります．
+その場合は，機能の分割が適切に行われていないので，
+簡潔な名前の2つの関数に分けることを考えます．
+</p>
+
+<p>
+これは，全般についてですが，単語のスペルを間違わないようにしましょう．
+disit, fanction, ward，charactor，trance, chenge など，基本的な単語の綴りを見付けると，
+その人のプログラミングの腕にも疑問が生じてしまいます．
+また，関数名は英語で付けましょう．あなたのコードを読む人が日本語堪能とは限りません．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E8%A7%A3%E7%AD%94%E4%BE%8B" class="outline-4">
+<h4 id="%E8%A7%A3%E7%AD%94%E4%BE%8B">解答例</h4>
+<div class="outline-text-4" id="text-%E8%A7%A3%E7%AD%94%E4%BE%8B">
+</div>
+<div id="outline-container-%E8%A7%A3%E7%AD%94%E4%BE%8B1" class="outline-5">
+<h5 id="%E8%A7%A3%E7%AD%94%E4%BE%8B1">解答例1</h5>
+<div class="outline-text-5" id="text-%E8%A7%A3%E7%AD%94%E4%BE%8B1">
+<div class="org-src-container">
+<pre class="src src-c"><span class="linenr"> 1: </span><span class="org-comment-delimiter">/*****************************************************</span>
+<span class="linenr"> 2: </span><span class="org-comment"> * 1桁の整数 0〜9 を ASCII文字の '0' 〜 '9' に変換する</span>
+<span class="linenr"> 3: </span><span class="org-comment"> * 引数が範囲を外れた場合はヌル文字 ('\0') を返す．</span>
+<span class="linenr"> 4: </span><span class="org-comment"> ****************************************************</span><span class="org-comment-delimiter">*/</span>
+<span class="linenr"> 5: </span><span class="org-type">char</span> <span class="org-function-name">digit_to_char</span>(<span class="org-type">int</span> <span class="org-variable-name">n</span>)
+<span class="linenr"> 6: </span>{
+<span class="linenr"> 7: </span>  <span class="org-keyword">if</span> (n &lt; 0 || n &gt; 9)
+<span class="linenr"> 8: </span>    <span class="org-keyword">return</span> <span class="org-string">'\0'</span>;   <span class="org-comment-delimiter">/* </span><span class="org-comment">error</span><span class="org-comment-delimiter"> */</span>
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span>  <span class="org-keyword">return</span> <span class="org-string">'0'</span> + n;
+<span class="linenr">11: </span>}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E8%A7%A3%E7%AD%94%E4%BE%8B2" class="outline-5">
+<h5 id="%E8%A7%A3%E7%AD%94%E4%BE%8B2">解答例2</h5>
+<div class="outline-text-5" id="text-%E8%A7%A3%E7%AD%94%E4%BE%8B2">
+<div class="org-src-container">
+<pre class="src src-c"><span class="linenr"> 1: </span><span class="org-comment-delimiter">/************************************************</span>
+<span class="linenr"> 2: </span><span class="org-comment"> * 1桁の整数 0〜9 を文字 '0' 〜 '9' に変換する</span>
+<span class="linenr"> 3: </span><span class="org-comment"> *  引数が範囲を外れた場合はヌル文字 ('\0') を返す．</span>
+<span class="linenr"> 4: </span><span class="org-comment"> ***********************************************</span><span class="org-comment-delimiter">*/</span>
+<span class="linenr"> 5: </span><span class="org-type">char</span> <span class="org-function-name">d2c</span>(<span class="org-type">int</span> <span class="org-variable-name">n</span>)
+<span class="linenr"> 6: </span>{
+<span class="linenr"> 7: </span>  <span class="org-type">char</span> <span class="org-variable-name">d2c_table</span>[] = {<span class="org-string">'0'</span>, <span class="org-string">'1'</span>, <span class="org-string">'2'</span>, <span class="org-string">'3'</span>, <span class="org-string">'4'</span>,
+<span class="linenr"> 8: </span>                      <span class="org-string">'5'</span>, <span class="org-string">'6'</span>, <span class="org-string">'7'</span>, <span class="org-string">'8'</span>, <span class="org-string">'9'</span>};
+<span class="linenr"> 9: </span>
+<span class="linenr">10: </span>  <span class="org-keyword">if</span> (n &lt; 0 || n &gt; 9)
+<span class="linenr">11: </span>    <span class="org-keyword">return</span> <span class="org-string">'\0'</span>;   <span class="org-comment-delimiter">/* </span><span class="org-comment">error</span><span class="org-comment-delimiter"> */</span>
+<span class="linenr">12: </span>
+<span class="linenr">13: </span>  <span class="org-keyword">return</span> d2c_table[n];
+<span class="linenr">14: </span>}
+</pre>
+</div>
+
+<p>
+技術的には，テーブルを使うことで，文字のコード体系への依存を低くしています．
+</p>
+
+<p>
+スタイルに関しては，以下のようなことに気を配って
+コードを書いています．
+</p>
+
+<ol class="org-ol">
+<li>関数の前に入出力に関するコメントを入れる</li>
+<li>まとまりのある部分の間に空行や空白を入れる
+<ul class="org-ul">
+<li>宣言部の後の空行，if 〜 return の一連の行の後</li>
+<li>「,」 後，二項演算子の前後，if や return の予約語の後</li>
+</ul></li>
+<li>関数の名前，型，簡潔さ，必要十分なエラー処理
+<ul class="org-ul">
+<li>同じ物は同じ名前，違う物は違う名前</li>
+<li>局所的な名前は短く簡潔に</li>
+</ul></li>
+<li>分かりにくい所には () を余分に挿入 (今回は，なし)</li>
+<li>関数名と ( の間には空白を入れない．</li>
+<li>if, while 等，予約語と後の ( には空白を入れる</li>
+<li>return の後は () でくくらない</li>
+<li>関数の宣言語の { は，単体で行頭から，それ以外はぶらさげる．</li>
+<li>else は 1行で } else { と書く (else if の場合は別)</li>
+<li>インデント幅は 2桁</li>
+</ol>
+
+
+<p>
+これを全て守れという訳ではなくて，このような
+着眼点や選択があるということを知って下さい．
+大事なのは，一貫性を持ってスタイルを統一することです．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E8%A7%A3%E7%AD%94%E4%BE%8B3" class="outline-5">
+<h5 id="%E8%A7%A3%E7%AD%94%E4%BE%8B3">解答例3</h5>
+<div class="outline-text-5" id="text-%E8%A7%A3%E7%AD%94%E4%BE%8B3">
+<div class="org-src-container">
+<pre class="src src-c"><span class="linenr">1: </span><span class="org-comment-delimiter">/************************************************</span>
+<span class="linenr">2: </span><span class="org-comment"> * 1桁の整数 0〜9 を文字 '0' 〜 '9' に変換する</span>
+<span class="linenr">3: </span><span class="org-comment"> *  引数が範囲を外れた場合はヌル文字 ('\0') を返す．</span>
+<span class="linenr">4: </span><span class="org-comment"> ***********************************************</span><span class="org-comment-delimiter">*/</span>
+<span class="linenr">5: </span><span class="org-type">char</span> <span class="org-function-name">d2c</span>(<span class="org-type">int</span> <span class="org-variable-name">n</span>)
+<span class="linenr">6: </span>{
+<span class="linenr">7: </span>  <span class="org-keyword">return</span> <span class="org-string">"0123456789"</span>[(n &lt; 0 || n &gt; 9) ? 10 : n];
+<span class="linenr">8: </span>}
+</pre>
+</div>
+
+<p>
+文字列と文字ポインタの関係をよく知っていれば，このように書くことも可能です．
+(推奨しているという意味ではありません)
+</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-%E3%80%8C%E5%90%8D%E5%89%8D%E3%80%8D%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%B3%A8%E6%84%8F" class="outline-3">
+<h3 id="%E3%80%8C%E5%90%8D%E5%89%8D%E3%80%8D%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E6%B3%A8%E6%84%8F"><span class="section-number-3">1.3.</span> 「名前」に関する注意</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+的確な名前を付けるのは， <b>非常に難しい!</b>  (私もよく悩みます)
+</p>
+</div>
+
+
+
+<div id="outline-container-%E6%9C%80%E3%82%82%E9%87%8D%E8%A6%81%E3%81%AA%E7%82%B9" class="outline-4">
+<h4 id="%E6%9C%80%E3%82%82%E9%87%8D%E8%A6%81%E3%81%AA%E7%82%B9">最も重要な点</h4>
+<div class="outline-text-4" id="text-%E6%9C%80%E3%82%82%E9%87%8D%E8%A6%81%E3%81%AA%E7%82%B9">
+<p>
+最も重要な点は，
+</p>
+<pre class="example">いい名前を付けるという意識を持つ
+</pre>
+
+<p>
+です．この回の目的は，名前付けに時間を割くことの重要性を意識してほしい．
+</p>
+
+<p>
+名前を決めるために
+</p>
+<ul class="org-ul">
+<li>辞書を引いたり</li>
+<li>仲間と長時間に渡って議論したり</li>
+</ul>
+<p>
+することは， <b>めずらしいことではない</b> のです．
+</p>
+
+<p>
+書籍「プログラミング作法」や「リーダブルコード」でも，
+名前付けについて，多くの紙面を割いて，以下のような
+指針を説明しています．これらを私なりに解説してみます．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E3%81%AB%E3%81%AF%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E5%90%8D%E5%89%8D%E3%82%92%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AB%E3%81%AF%E7%9F%AD%E3%81%84%E5%90%8D%E5%89%8D%E3%82%92" class="outline-4">
+<h4 id="%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E3%81%AB%E3%81%AF%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E5%90%8D%E5%89%8D%E3%82%92%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AB%E3%81%AF%E7%9F%AD%E3%81%84%E5%90%8D%E5%89%8D%E3%82%92">グローバルには分かりやすい名前をローカルには短い名前を</h4>
+<div class="outline-text-4" id="text-%E3%82%B0%E3%83%AD%E3%83%BC%E3%83%90%E3%83%AB%E3%81%AB%E3%81%AF%E5%88%86%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E5%90%8D%E5%89%8D%E3%82%92%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E3%81%AB%E3%81%AF%E7%9F%AD%E3%81%84%E5%90%8D%E5%89%8D%E3%82%92">
+</div>
+<div id="outline-container-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E5%A4%89%E6%95%B0%E3%81%AF%E7%9F%AD%E3%81%8B%E3%81%84%E5%90%8D%E5%89%8D%E3%81%A7%E3%81%84%E3%81%84" class="outline-5">
+<h5 id="%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E5%A4%89%E6%95%B0%E3%81%AF%E7%9F%AD%E3%81%8B%E3%81%84%E5%90%8D%E5%89%8D%E3%81%A7%E3%81%84%E3%81%84">ローカル変数は短かい名前でいい</h5>
+<div class="outline-text-5" id="text-%E3%83%AD%E3%83%BC%E3%82%AB%E3%83%AB%E5%A4%89%E6%95%B0%E3%81%AF%E7%9F%AD%E3%81%8B%E3%81%84%E5%90%8D%E5%89%8D%E3%81%A7%E3%81%84%E3%81%84">
+<p>
+関数の中で宣言するローカル変数は， <b>スコープ</b> が小さいので，
+長い名前を付ける必要はありません． <code>char_position_counter</code> とするより，
+<code>i</code> で十分であることが多いです．
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c"><span class="linenr">1: </span><span class="org-keyword">for</span> (i = 0; i &lt; 100; i++) {
+<span class="linenr">2: </span>}
+<span class="linenr">3: </span>
+<span class="linenr">4: </span><span class="org-keyword">for</span> (char_position_counter = 0; char_position_counter &lt; 100; char_position_counter++) {
+<span class="linenr">5: </span>}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AF%E9%95%B7%E3%81%8F%E3%81%AA%E3%82%8A%E3%81%8C%E3%81%A1" class="outline-5">
+<h5 id="%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AF%E9%95%B7%E3%81%8F%E3%81%AA%E3%82%8A%E3%81%8C%E3%81%A1">関数名は長くなりがち</h5>
+<div class="outline-text-5" id="text-%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AF%E9%95%B7%E3%81%8F%E3%81%AA%E3%82%8A%E3%81%8C%E3%81%A1">
+<p>
+一方，関数名は，一般にグローバルであるため，長い名前であることが多いです．
+ただ，いつも長い名前でなければならないかというと，必ずしもそうではありません．
+標準ライブラリのように使用頻度の高い，あるいは基本的な
+関数であればある程，名前は，むしろ短かくなる傾向にあります．
+ある種演算子のような扱いを受けるためです．
+</p>
+
+<p>
+例えば，Web アプリケーションフレームワークの Ruby on Rails では，HTML をエスケープする操作が頻繁にあるため，
+その関数に <code>h</code> という1文字の関数を充てています．
+</p>
+
+<p>
+そうした，プログラムの性質や使われる場面で関数名も変わる場合があります．
+<code>digit_to_char</code> と <code>d2c</code> のどちらがよいかは，場合によるのです．
+ただ，change が駄目なのは，どこにいっても同じです．
+</p>
+
+<p>
+また，オブジェクト指向などの言語で，<b>多態性</b> (多相性，ポリモーフィズム polymorphism とも) を
+扱える場合 (後の講義で説明) は，短い名前になることもあります．
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E7%B5%B1%E4%B8%80%E3%81%97%E3%82%88%E3%81%86%3A%20%E5%90%8C%E3%81%98%E7%89%A9%E3%81%AB%E3%81%AF%E5%90%8C%E3%81%98%E5%90%8D%E5%89%8D%E3%82%92%E9%81%95%E3%81%86%E7%89%A9%E3%81%AB%E3%81%AF%E9%81%95%E3%81%86%E5%90%8D%E5%89%8D%E3%82%92" class="outline-4">
+<h4 id="%E7%B5%B1%E4%B8%80%E3%81%97%E3%82%88%E3%81%86%3A%20%E5%90%8C%E3%81%98%E7%89%A9%E3%81%AB%E3%81%AF%E5%90%8C%E3%81%98%E5%90%8D%E5%89%8D%E3%82%92%E9%81%95%E3%81%86%E7%89%A9%E3%81%AB%E3%81%AF%E9%81%95%E3%81%86%E5%90%8D%E5%89%8D%E3%82%92">統一しよう: 同じ物には同じ名前を違う物には違う名前を</h4>
+<div class="outline-text-4" id="text-%E7%B5%B1%E4%B8%80%E3%81%97%E3%82%88%E3%81%86%3A%20%E5%90%8C%E3%81%98%E7%89%A9%E3%81%AB%E3%81%AF%E5%90%8C%E3%81%98%E5%90%8D%E5%89%8D%E3%82%92%E9%81%95%E3%81%86%E7%89%A9%E3%81%AB%E3%81%AF%E9%81%95%E3%81%86%E5%90%8D%E5%89%8D%E3%82%92">
+<ul class="org-ul">
+<li>変数名や関数名の付け方には，プログラム中で形式を統一することに意義がある</li>
+<li>どういう形式を付けるかは，組織や趣味の問題でもある</li>
+<li>ただし，同じ文字列を表すのに複数の表記を混在させるのはよくない
+<ul class="org-ul">
+<li>例: 文字列として str や string を混在させる</li>
+</ul></li>
+
+<li>名前付けには，言語によってある程度慣習があります．</li>
+<li>特に拘りがなければ，その流儀に従うのがよいでしょう．(→ 下記 名前付の慣習 参照)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-%E9%96%A2%E6%95%B0%E3%81%AB%E3%81%AF%E8%83%BD%E5%8B%95%E7%9A%84%E3%81%AA%E5%90%8D%E5%89%8D%E3%82%92%2C%20%E5%90%8D%E5%89%8D%E3%81%AF%E7%9A%84%E7%A2%BA%E3%81%AB" class="outline-4">
+<h4 id="%E9%96%A2%E6%95%B0%E3%81%AB%E3%81%AF%E8%83%BD%E5%8B%95%E7%9A%84%E3%81%AA%E5%90%8D%E5%89%8D%E3%82%92%2C%20%E5%90%8D%E5%89%8D%E3%81%AF%E7%9A%84%E7%A2%BA%E3%81%AB">関数には能動的な名前を, 名前は的確に</h4>
+<div class="outline-text-4" id="text-%E9%96%A2%E6%95%B0%E3%81%AB%E3%81%AF%E8%83%BD%E5%8B%95%E7%9A%84%E3%81%AA%E5%90%8D%E5%89%8D%E3%82%92%2C%20%E5%90%8D%E5%89%8D%E3%81%AF%E7%9A%84%E7%A2%BA%E3%81%AB">
+</div>
+<div id="outline-container-%E8%83%BD%E5%8B%95%E7%9A%84%E3%81%AA%E5%90%8D%E5%89%8D%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B" class="outline-5">
+<h5 id="%E8%83%BD%E5%8B%95%E7%9A%84%E3%81%AA%E5%90%8D%E5%89%8D%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B">能動的な名前とは何か</h5>
+<div class="outline-text-5" id="text-%E8%83%BD%E5%8B%95%E7%9A%84%E3%81%AA%E5%90%8D%E5%89%8D%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B">
+<ul class="org-ul">
+<li><p>
+能動的な動詞と目的語としての名詞を組み合わせると，大抵の場合うまくいきます．
+</p>
+<pre class="example">time = date.getTime()
+</pre></li>
+<li>真偽値を返すような関数は，その限りではありません．C言語では，is… という名前がよく使われますね．</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-%E8%A8%80%E8%AA%9E%E3%81%AE%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AB%E4%BC%BC%E3%81%9F%E5%90%8D%E5%89%8D%E3%82%92%E4%BB%98%E3%81%91%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AF%E6%B3%A8%E6%84%8F%E3%81%97%E3%82%88%E3%81%86" class="outline-5">
+<h5 id="%E8%A8%80%E8%AA%9E%E3%81%AE%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AB%E4%BC%BC%E3%81%9F%E5%90%8D%E5%89%8D%E3%82%92%E4%BB%98%E3%81%91%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AF%E6%B3%A8%E6%84%8F%E3%81%97%E3%82%88%E3%81%86">言語の標準ライブラリに似た名前を付けるときは注意しよう</h5>
+<div class="outline-text-5" id="text-%E8%A8%80%E8%AA%9E%E3%81%AE%E6%A8%99%E6%BA%96%E3%83%A9%E3%82%A4%E3%83%96%E3%83%A9%E3%83%AA%E3%81%AB%E4%BC%BC%E3%81%9F%E5%90%8D%E5%89%8D%E3%82%92%E4%BB%98%E3%81%91%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AF%E6%B3%A8%E6%84%8F%E3%81%97%E3%82%88%E3%81%86">
+<p>
+標準的でよく知られた関数と似た名前なのに，異なる動作をしていると，かえって混乱を招きます．
+C言語では，strXXX という名前の関数名は標準的に文字列 (char*) を扱う関数です．
+</p>
+
+<p>
+第一回の演習(3) の名前としてはふさわしくないでしょう．char と char* を明確に区別すべきです．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E5%8B%87%E6%B0%97%E3%82%92%E6%8C%81%E3%81%A3%E3%81%A6%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%9B%BF%E3%81%88%E3%82%92%E8%A1%8C%E3%81%8A%E3%81%86" class="outline-5">
+<h5 id="%E5%8B%87%E6%B0%97%E3%82%92%E6%8C%81%E3%81%A3%E3%81%A6%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%9B%BF%E3%81%88%E3%82%92%E8%A1%8C%E3%81%8A%E3%81%86">勇気を持って関数名の付け替えを行おう</h5>
+<div class="outline-text-5" id="text-%E5%8B%87%E6%B0%97%E3%82%92%E6%8C%81%E3%81%A3%E3%81%A6%E9%96%A2%E6%95%B0%E5%90%8D%E3%81%AE%E4%BB%98%E3%81%91%E6%9B%BF%E3%81%88%E3%82%92%E8%A1%8C%E3%81%8A%E3%81%86">
+<p>
+「名前は的確に」は，一見あたりまえに思えますが，
+プログラムが書換えられ，拡張されていくに従って，
+関数が本来の仕事以外の仕事を引き受けるようになっていたりすると，この問題が起こります．
+</p>
+
+<p>
+例えば，search(item) という関数名なのに，search(item) を呼ぶと，
+検索と同時に削除してソートまでしてくれる関数を見たことがあります．
+そうなった場合は，勇気を持って関数名の付け替えを行うか，別な関数に分ける必要があります．
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E6%98%8E%E7%A2%BA%E3%81%AA%E5%8D%98%E8%AA%9E%E3%82%92%E9%81%B8%E3%81%B6" class="outline-4">
+<h4 id="%E6%98%8E%E7%A2%BA%E3%81%AA%E5%8D%98%E8%AA%9E%E3%82%92%E9%81%B8%E3%81%B6">明確な単語を選ぶ</h4>
+<div class="outline-text-4" id="text-%E6%98%8E%E7%A2%BA%E3%81%AA%E5%8D%98%E8%AA%9E%E3%82%92%E9%81%B8%E3%81%B6">
+</div>
+<div id="outline-container-%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B4%E3%81%A7%E3%82%82%E8%8B%A6%E5%8A%B4%E3%81%99%E3%82%8B%E8%8B%B1%E8%AA%9E%E3%81%AE%E5%95%8F%E9%A1%8C" class="outline-5">
+<h5 id="%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B4%E3%81%A7%E3%82%82%E8%8B%A6%E5%8A%B4%E3%81%99%E3%82%8B%E8%8B%B1%E8%AA%9E%E3%81%AE%E5%95%8F%E9%A1%8C">ネイティヴでも苦労する英語の問題</h5>
+<div class="outline-text-5" id="text-%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B4%E3%81%A7%E3%82%82%E8%8B%A6%E5%8A%B4%E3%81%99%E3%82%8B%E8%8B%B1%E8%AA%9E%E3%81%AE%E5%95%8F%E9%A1%8C">
+<p>
+関数名は英語で付けるのが普通ですが，単純な単語ほど気を付けましょう．
+</p>
+
+<p>
+Get ではなく，状況に応じて Fetch や DownLoad といった明確な単語を選択する必要があります．
+Delete に対して，Erase, Remove, Wipe, Drop, Cut のどれがいいか吟味することが必要です．
+</p>
+
+<p>
+例えば，以下の文で得られる result は，data から特定の条件に合うものだけを
+得ようとフィルタにかけていることが想像できますが，得られた結果は，どちらだと思いますか?
+</p>
+<div class="org-src-container">
+<pre class="src src-c">results = filter(data, <span class="org-string">"year &lt;= 2000"</span>)
+</pre>
+</div>
+<ul class="org-ul">
+<li>2000年以前のデータを <b>抽出</b> する</li>
+<li>2000年以前のデータを <b>除外</b> する</li>
+</ul>
+<p>
+これはネイティヴにもよく分かりません．
+どんな，能動的な単語がいいと思いますか?
+</p>
+
+<ul class="org-ul">
+<li>参考: <a href="https://stackoverflow.com/questions/45939202/filter-naming-convention">Filter naming convention - Stack Overflow</a></li>
+<li>この話は，「リーダブルコード」にも載っています．</li>
+</ul>
+
+<p>
+ChatGPT に聞いてみた例です:
+</p>
+
+
+<figure id="org86d5b73">
+<img src="./2025年度 プログラミング技法 (第02回)_files/ask-chatgpt-function-name.png" alt="ask-chatgpt-function-name.png" width="500px">
+
+</figure>
+
+<p>
+「関数には能動的な名前を」を守ってくれていますね．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E9%9D%9E%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B4%E3%81%8C%E6%B3%A8%E6%84%8F%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8" class="outline-5">
+<h5 id="%E9%9D%9E%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B4%E3%81%8C%E6%B3%A8%E6%84%8F%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8">非ネイティヴが注意すること</h5>
+<div class="outline-text-5" id="text-%E9%9D%9E%E3%83%8D%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B4%E3%81%8C%E6%B3%A8%E6%84%8F%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8">
+<ol class="org-ol">
+<li>英語として正しいか (目的語の取り方)</li>
+<li><b>ネイティヴでも滅多に使わないような難し過ぎる単語を使っていないか</b></li>
+<li>あまりに広い意味の単語を使っていないか (change, check, process など)</li>
+<li>一般的に(あるいはこの業界では)違う意味に使われる単語ではないか</li>
+<li>省いてもいい単語は入っていないか</li>
+<li>発音できるか (教科書に面白い問題がありますね)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-%E3%81%A9%E3%82%93%E3%81%AA%E5%8D%98%E8%AA%9E%E3%81%8C%E4%BD%BF%E3%81%88%E3%81%9D%E3%81%86%E3%81%8B" class="outline-5">
+<h5 id="%E3%81%A9%E3%82%93%E3%81%AA%E5%8D%98%E8%AA%9E%E3%81%8C%E4%BD%BF%E3%81%88%E3%81%9D%E3%81%86%E3%81%8B">どんな単語が使えそうか</h5>
+<div class="outline-text-5" id="text-%E3%81%A9%E3%82%93%E3%81%AA%E5%8D%98%E8%AA%9E%E3%81%8C%E4%BD%BF%E3%81%88%E3%81%9D%E3%81%86%E3%81%8B">
+<p>
+英語辞書は必須です．英英辞書がいいでしょう．
+</p>
+
+<ul class="org-ul">
+<li>おすすめは，英英辞書: Longman Dictionary of Contemporary English</li>
+<li>シソーラスを調べるのには，Language Activator がおすすめです．</li>
+</ul>
+
+<p>
+もう1つは，既存のコードをよく読んで，よく使われていそうな単語を知ることです．
+例えば，GitHub でコードを検索して，その単語がどの部分でどの程度使われているか調べるという方法はどうでしょうか．
+</p>
+<ul class="org-ul">
+<li>こんな感じ <a href="https://github.com/search?l=&amp;q=delete_database+language%3AC&amp;type=Code">https://github.com/search?l=&amp;q=delete_database+language%3AC&amp;type=Code</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-%E5%90%8D%E5%89%8D%E4%BB%98%E3%81%91%E3%81%AE%E7%BF%92%E6%85%A3" class="outline-3">
+<h3 id="%E5%90%8D%E5%89%8D%E4%BB%98%E3%81%91%E3%81%AE%E7%BF%92%E6%85%A3"><span class="section-number-3">1.4.</span> 名前付けの習慣</h3>
+<div class="outline-text-3" id="text-1-4">
+</div>
+<div id="outline-container-%E8%A8%80%E8%AA%9E%E5%88%A5%EF%BC%8C%E5%90%8D%E5%89%8D%E3%81%AE%E6%85%A3%E7%BF%92" class="outline-4">
+<h4 id="%E8%A8%80%E8%AA%9E%E5%88%A5%EF%BC%8C%E5%90%8D%E5%89%8D%E3%81%AE%E6%85%A3%E7%BF%92">言語別，名前の慣習</h4>
+<div class="outline-text-4" id="text-%E8%A8%80%E8%AA%9E%E5%88%A5%EF%BC%8C%E5%90%8D%E5%89%8D%E3%81%AE%E6%85%A3%E7%BF%92">
+<p>
+関数名を付けるときは，string to integer のような英語の
+フレーズをプログラミング言語の文法に合うように
+書換えることが多いです．例えば，'_' を
+間に狭んで string_to_int とするのは，C言語でよく使われる例でしょう．
+</p>
+
+<p>
+この書換えの流儀には，いくつかよく知られたものがあります．
+</p>
+
+<ol class="org-ol">
+<li>stringToInteger</li>
+<li>StringToInteger</li>
+<li>string_to_integer</li>
+<li>string-to-integer</li>
+</ol>
+</div>
+
+<div id="outline-container-1.%20Camel%20Case" class="outline-5">
+<h5 id="1.%20Camel%20Case">1. Camel Case</h5>
+<div class="outline-text-5" id="text-1.%20Camel%20Case">
+<p>
+stringToInteger のような方式は，camel case (camelCase) と呼ばれます．
+ラクダのコブのように文字列が凸凹していうところから，
+そう呼ばれるようになりました．
+Smalltalk から流行したとされているためか，
+Java や C++ など，オブジェクト指向言語と呼ばれる言語で広く使われています．
+</p>
+</div>
+</div>
+
+<div id="outline-container-2.%20Upper%20Camel%20Case" class="outline-5">
+<h5 id="2.%20Upper%20Camel%20Case">2. Upper Camel Case</h5>
+<div class="outline-text-5" id="text-2.%20Upper%20Camel%20Case">
+<p>
+Camel Case に対して StringToInteger は，Upper Camel Case と特別に区別されることもあります．
+Pascal Case と呼ばれることもあります．
+</p>
+</div>
+</div>
+
+<div id="outline-container-3.%20Snake%20Case" class="outline-5">
+<h5 id="3.%20Snake%20Case">3. Snake Case</h5>
+<div class="outline-text-5" id="text-3.%20Snake%20Case">
+<p>
+string_to_integer の表記は，おなじみの C言語でよく使われる表記で，
+snake case とも呼ばれます．
+</p>
+
+<ul class="org-ul">
+<li>歴史が古い記法で，古株のプログラマは，
+この表記を好むか，str2int のように極端に短かい表記を使う
+傾向にあります．</li>
+
+<li>過去，変数名や関数名が長いと，コンパイラのシンボルテーブルが溢れてしまうからだという
+理由や，編集名の入力にエディタのサポートが少なかったこともあるようです．
+もあったようです．皆さんが実験で作るコンパイラは，何文字までの変数名に対応しているでしょうか．</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-4.%20Kebab%20Case" class="outline-5">
+<h5 id="4.%20Kebab%20Case">4. Kebab Case</h5>
+<div class="outline-text-5" id="text-4.%20Kebab%20Case">
+<p>
+<a href="https://ja.wikipedia.org/wiki/%E3%82%B1%E3%83%90%E3%83%96">ケバブ</a>って知っていますか?
+</p>
+<ul class="org-ul">
+<li>Lisp では非常に一般的です．COBOL でもこの表記を許すようです．</li>
+<li>プログラミング言語ではないですが，HTML を装飾する CSS も，この表記を使います．</li>
+</ul>
+<p>
+Lisp に Camel Case を使っているのを見ると，気持ち悪がられるかもしれません．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AE%E5%84%AA%E5%8A%A3" class="outline-5">
+<h5 id="%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AE%E5%84%AA%E5%8A%A3">それぞれの優劣</h5>
+<div class="outline-text-5" id="text-%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AE%E5%84%AA%E5%8A%A3">
+<p>
+これらの表記に特別優劣はありませんが，統一された
+記述にすることで読みやすく，一貫性のあるコードになります．
+特にこだわりやプロジェクトでのルールがなければ，
+その言語の慣習に合わせるのがよいでしょう．
+</p>
+</div>
+</div>
+
+<div id="outline-container-%E7%9C%9F%E5%81%BD%E3%82%92%E8%BF%94%E3%81%99%E9%96%A2%E6%95%B0" class="outline-5">
+<h5 id="%E7%9C%9F%E5%81%BD%E3%82%92%E8%BF%94%E3%81%99%E9%96%A2%E6%95%B0">真偽を返す関数</h5>
+<div class="outline-text-5" id="text-%E7%9C%9F%E5%81%BD%E3%82%92%E8%BF%94%E3%81%99%E9%96%A2%E6%95%B0">
+<p>
+真偽を返す関数には，それと分かる特別な名前を付ける習慣があります．
+</p>
+<ul class="org-ul">
+<li>C では is_happy のように is_xxx を使うことが多いです．</li>
+<li>Java では isHappy</li>
+<li>Lisp では predicate を表す p を を後ろに付けて，happy-p</li>
+<li>Lisp は，シンボル名の自由度が高いので，happy? のように ? を後置することもある</li>
+<li>Ruby も happy?</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E7%BF%92%E6%85%A3" class="outline-5">
+<h5 id="%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E7%BF%92%E6%85%A3">その他の習慣</h5>
+<div class="outline-text-5" id="text-%E3%81%9D%E3%81%AE%E4%BB%96%E3%81%AE%E7%BF%92%E6%85%A3">
+<ul class="org-ul">
+<li>C言語では，定数は全て upper case で書く</li>
+<li>Java では，クラス名は大文字から始める (UpperCamelCase)</li>
+<li>外部に公開したくない関数や構造体のメンバは， `_' で始める</li>
+</ul>
+<p>
+などは，一般的によく見る名前付けの方法です．
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-%E3%83%8F%E3%83%B3%E3%82%AC%E3%83%AA%E3%82%A2%E3%83%B3%E8%A8%98%E6%B3%95%E3%81%A8%E3%81%AF" class="outline-4">
+<h4 id="%E3%83%8F%E3%83%B3%E3%82%AC%E3%83%AA%E3%82%A2%E3%83%B3%E8%A8%98%E6%B3%95%E3%81%A8%E3%81%AF">ハンガリアン記法とは</h4>
+<div class="outline-text-4" id="text-%E3%83%8F%E3%83%B3%E3%82%AC%E3%83%AA%E3%82%A2%E3%83%B3%E8%A8%98%E6%B3%95%E3%81%A8%E3%81%AF">
+<p>
+変数名の前(まれに後ろ)に，その変数の型が分かる接頭辞を付ける方式があります．
+これをシステムハンガリアン記法(システムハンガリアン)と呼びます．
+教科書 P.20 で言及されている「ポインタの末尾に p を付ける」といった習慣は，これのことを指していると思われます．
+</p>
+
+<p>
+例えば，window Handle 型の MainWindow を
+hMainWindow と書いたり，zero で終端する文字列を szString
+と書いたりする方法です．
+かつて，Microsoft の MFC と呼ばれるライブラリ群の名前付けには，
+この規則が採用されており，Windows OS 用のコードでは，
+よく見られます．
+</p>
+
+<p>
+近年では，Microsoft もこの方式をやめ，利用を
+推奨していません．型チェックはコンパイラでやるべき仕事なので，
+かえって可読性が悪くなるのが主な理由です．
+この方法を使っている人を見ると Windows のプログラミングに
+慣れているのかと推測できます．
+</p>
+
+<p>
+なお，本来のハンガリアン記法は，アプリケーションハンガリアンと呼ばれて
+区別されています．型に付けるのではなく，
+同じ型でも両者を区別し，不用意な代入などを防ぐ目的で接頭辞を付加する方式です．
+例えば，年齢を意味する int には ageVariable，身長を意味する場合は，
+heightVariable とすることで，文法的には(同じ型なので)問題がないのに
+意味的にはおかしい ageXXX = heightYYY のような間違いを防ぐという考えです．
+</p>
+
+<p>
+型に関する表現が強力な言語(Haskellなど)においては，型レベルで両者を区別するように記述できます．
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Yoshinari Nomura</p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org/">Org</a> mode 9.5.2)</p>
+</div>
+
+
+<div id="trend_notification_app" class="trend_notification_app_outer"><div id="trend_notification"><div id="trend_notification_con"></div></div></div><div id="UMS_TOOLTIP" style="position: absolute; cursor: pointer; z-index: 2147483647; background: transparent; top: -100000px; left: -100000px;"></div></body><umsdataelement id="UMSDataElement" style="display: none;"></umsdataelement><div id="tmtoolbar_manual_rating_injected" style="display: none;">init</div><div id="UMSSendDataEventElement" style="display: none;">init</div></html>

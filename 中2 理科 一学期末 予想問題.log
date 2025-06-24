@@ -3,8 +3,8 @@ entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/yuya/projects/temp/StandUp/Exam_Science_J2
-(/home/yuya/projects/temp/StandUp/Exam_Science_J2.tex
+**"/home/yuya/projects/temp/StandUp/中2 理科 一学期末 予想問題"
+(/home/yuya/projects/temp/StandUp/中2 理科 一学期末 予想問題.tex
 pLaTeX2e <2021-11-15u04> (based on LaTeX2e <2021-11-15> patch level 1)
 L3 programming layer <2022-01-21> (/usr/share/texlive/texmf-dist/tex/latex/bxjscls/bxjsarticle.cls
 Document Class: bxjsarticle 2021/05/18 v2.5a BXJS document classes
@@ -196,8 +196,9 @@ File: l3backend-dvipdfmx.def 2022-01-12 L3 backend support: dvipdfmx
 \g__pdf_backend_object_int=\count286
 \g__pdf_backend_annotation_int=\count287
 \g__pdf_backend_link_int=\count288
-) (./Exam_Science_J2.aux)
-\openout1 = `Exam_Science_J2.aux'.
+)
+No file "中2 理科 一学期末 予想問題".aux.
+\openout1 = `"中2 理科 一学期末 予想問題.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
@@ -217,7 +218,6 @@ LaTeX Font Info:    Checking defaults for JY2/mc/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
 LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
-
 *geometry* detected driver: dvipdfm
 *geometry* verbose mode - [ preamble ] result:
 * driver: dvipdfm
@@ -314,14 +314,14 @@ File: 酸素マグネシウムグラフ.png Graphic file (type bmp)
 <酸素マグネシウムグラフ.png>
  [6
 
-] (./Exam_Science_J2.aux) ) 
+] (./中2 理科 一学期末 予想問題.aux) ) 
 Here is how much of TeX's memory you used:
- 3836 strings out of 479842
- 63057 string characters out of 5887289
- 362384 words of memory out of 5000000
+ 3834 strings out of 479842
+ 63219 string characters out of 5887289
+ 362397 words of memory out of 5000000
  22125 multiletter control sequences out of 15000+600000
  479873 words of font info for 82 fonts, out of 8000000 for 9000
  269 hyphenation exceptions out of 8191
- 61i,5n,71p,321b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 61i,5n,71p,345b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Exam_Science_J2.dvi (6 pages, 6928 bytes).
+Output written on "中2 理科 一学期末 予想問題.dvi" (6 pages, 6928 bytes).

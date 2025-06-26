@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p3.9.1-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2022/dev/Debian) (preloaded format=uplatex 2025.5.26)  23 JUN 2025 22:16
+This is e-upTeX, Version 3.141592653-p3.9.1-u1.27-210218-2.6 (utf8.uptex) (TeX Live 2022/dev/Debian) (preloaded format=uplatex 2025.5.26)  26 JUN 2025 10:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -196,8 +196,7 @@ File: l3backend-dvipdfmx.def 2022-01-12 L3 backend support: dvipdfmx
 \g__pdf_backend_object_int=\count286
 \g__pdf_backend_annotation_int=\count287
 \g__pdf_backend_link_int=\count288
-)
-No file "中2 理科 一学期末 予想問題".aux.
+) (./中2 理科 一学期末 予想問題.aux)
 \openout1 = `"中2 理科 一学期末 予想問題.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
@@ -218,6 +217,7 @@ LaTeX Font Info:    Checking defaults for JY2/mc/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
 LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 24.
 LaTeX Font Info:    ... okay on input line 24.
+
 *geometry* detected driver: dvipdfm
 *geometry* verbose mode - [ preamble ] result:
 * driver: dvipdfm
@@ -316,10 +316,10 @@ File: 酸素マグネシウムグラフ.png Graphic file (type bmp)
 
 ] (./中2 理科 一学期末 予想問題.aux) ) 
 Here is how much of TeX's memory you used:
- 3834 strings out of 479842
- 63219 string characters out of 5887289
- 362397 words of memory out of 5000000
- 22125 multiletter control sequences out of 15000+600000
+ 3837 strings out of 479842
+ 63356 string characters out of 5887289
+ 362388 words of memory out of 5000000
+ 22126 multiletter control sequences out of 15000+600000
  479873 words of font info for 82 fonts, out of 8000000 for 9000
  269 hyphenation exceptions out of 8191
  61i,5n,71p,345b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
